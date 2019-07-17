@@ -4,15 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2A3765"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/customPlayButton"
+        android:layout_width="229dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="225dp"
+        android:background="#0C60A0"
+        android:text="@string/customPlayText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#64CFCE"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quickPlayButton" />
+
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="77dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#03A9F4"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quickPlayButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/quickPlayButton"
+        android:layout_width="229dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="32dp"
+        android:background="#0C60A0"
+        android:text="@string/quickPlayText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#64CFCE"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/customPlayButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
 </android.support.constraint.ConstraintLayout>
