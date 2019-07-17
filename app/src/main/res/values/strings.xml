@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Quandom</string>
+    <string name="quickPlayText">QUICK PLAY</string>
+    <string name="customPlayText">CUSTOM PLAY</string>
 </resources>
