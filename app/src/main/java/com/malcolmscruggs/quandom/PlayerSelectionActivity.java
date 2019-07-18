@@ -59,7 +59,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
-                        if (players.get(2) == null) {
+                        try {
+                            players.get(2);
+                        } catch (IndexOutOfBoundsException e) {
                             players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
                             final EditText playerNameChange3 = findViewById(R.id.p3NameText);
                             playerNameChange3.addTextChangedListener(new TextWatcher() {
@@ -122,6 +124,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // get player avatar editors and set up listeners
 
         // create Players
+        players = new ArrayList<>(3);
         players.add(new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg));
         players.add(new Player(getString(R.string.player2_placeholder), R.id.p2AvatarImg));
 

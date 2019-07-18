@@ -132,7 +132,7 @@
                 android:id="@+id/p3Layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:text="@string/p3"
@@ -170,6 +170,7 @@
                 android:layout_gravity="center"
                 android:text="@string/play_game"
                 android:background="#00FF00"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="40dp"/>
         </LinearLayout>
     </ScrollView>
