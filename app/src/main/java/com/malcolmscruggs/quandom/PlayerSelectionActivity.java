@@ -69,7 +69,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                    player1.setPlayerName(playerNameChange3.getText().toString());
+                                    player3.setPlayerName(playerNameChange3.getText().toString());
                                 }
 
                                 @Override
@@ -113,7 +113,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                player1.setPlayerName(playerNameChange2.getText().toString());
+                player2.setPlayerName(playerNameChange2.getText().toString());
             }
 
             @Override
