@@ -61,26 +61,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
-                        try {
-                            players.get(2);
-                        } catch (IndexOutOfBoundsException e) {
-                            players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
-                            final EditText playerNameChange3 = findViewById(R.id.p3NameText);
-                            playerNameChange3.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                }
-
-                                @Override
-                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                    players.get(2).setPlayerName(playerNameChange3.getText().toString());
-                                }
-
-                                @Override
-                                public void afterTextChanged(Editable editable) {
-                                }
-                            });
-                        }
                         break;
                     default:
                         break;
@@ -95,42 +75,20 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             }
         });
 
-        // get player name editors and set up listeners
-        final EditText playerNameChange1 = findViewById(R.id.p1NameText);
-        final EditText playerNameChange2 = findViewById(R.id.p2NameText);
-
-        playerNameChange1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                players.get(0).setPlayerName(playerNameChange1.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-
-        playerNameChange2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                players.get(1).setPlayerName(playerNameChange2.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-
-        // get player avatar editors and set up listeners
-
         // create Players
         players = new ArrayList<>(3);
         players.add(new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg));
         players.add(new Player(getString(R.string.player2_placeholder), R.id.p2AvatarImg));
+        players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
+
+        // get player name editors and set up listeners
+        final EditText playerNameChange1 = findViewById(R.id.p1NameText);
+        final EditText playerNameChange2 = findViewById(R.id.p2NameText);
+        final EditText playerNameChange3 = findViewById(R.id.p3NameText);
+
+        setupPlayerEditText(0, playerNameChange1);
+        setupPlayerEditText(1, playerNameChange2);
+        setupPlayerEditText(2, playerNameChange3);
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
@@ -138,9 +96,31 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
-                intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, players));
+                ArrayList<Player> gamePlayer = new ArrayList<>(players);
+                if (numPlayers == 1) {
+                    gamePlayer.remove(2);
+                    gamePlayer.remove(1);
+                } else if (numPlayers == 2) {
+                    gamePlayer.remove(2);
+                }
+                intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer));
                 startActivity(intent);
             }
+        });
+    }
+
+    private void setupPlayerEditText(final int playerIdx, final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                players.get(playerIdx).setPlayerName(editText.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) { }
         });
     }
 
