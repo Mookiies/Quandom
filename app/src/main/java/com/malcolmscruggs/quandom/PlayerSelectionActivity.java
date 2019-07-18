@@ -1,5 +1,6 @@
 package com.malcolmscruggs.quandom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,15 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import java.util.ArrayList;
+
 import utils.Player;
+import utils.QuestionsCreator;
 
 public class PlayerSelectionActivity extends AppCompatActivity {
 
     int numPlayers;
     int numPoints;
-    Player player1;
-    Player player2;
-    Player player3;
+    ArrayList<Player> players;
     Button playButton;
 
     @Override
@@ -57,20 +59,24 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
-                        if (player3 == null) {
-                            player3 = new Player("Player3", R.id.p3AvatarImg);
+                        try {
+                            players.get(2);
+                        } catch (IndexOutOfBoundsException e) {
+                            players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
                             final EditText playerNameChange3 = findViewById(R.id.p3NameText);
                             playerNameChange3.addTextChangedListener(new TextWatcher() {
                                 @Override
-                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
-
-                                @Override
-                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                    player3.setPlayerName(playerNameChange3.getText().toString());
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 }
 
                                 @Override
-                                public void afterTextChanged(Editable editable) { }
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                    players.get(2).setPlayerName(playerNameChange3.getText().toString());
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                }
                             });
                         }
                         break;
@@ -97,7 +103,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                player1.setPlayerName(playerNameChange1.getText().toString());
+                players.get(0).setPlayerName(playerNameChange1.getText().toString());
             }
 
             @Override
@@ -110,7 +116,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                player2.setPlayerName(playerNameChange2.getText().toString());
+                players.get(1).setPlayerName(playerNameChange2.getText().toString());
             }
 
             @Override
@@ -120,10 +126,20 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // get player avatar editors and set up listeners
 
         // create Players
-        player1 = new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg);
-        player2 = new Player(getString(R.string.player1_placeholder), R.id.p2AvatarImg);
+        players = new ArrayList<>(3);
+        players.add(new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg));
+        players.add(new Player(getString(R.string.player2_placeholder), R.id.p2AvatarImg));
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PlayerSelectionActivity.this, null);
+                intent.putExtra("Players", players);
+                intent.putExtra("Questions", new QuestionsCreator(3).getQuestions());
+                startActivity(intent);
+            }
+        });
     }
 }
