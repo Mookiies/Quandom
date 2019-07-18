@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void quickPlayPress(View view) {
-        Button quickPlay = (Button) findViewById(R.id.quickPlayButton);
+        Button quickPlay = findViewById(R.id.quickPlayButton);
         quickPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent quickPlayItent = new Intent(getApplicationContext(), McqActivity.class);
+                Intent quickPlayItent = new Intent(getApplicationContext(), PlayerSelectionActivity.class);
                 startActivity(quickPlayItent);
             }
         });

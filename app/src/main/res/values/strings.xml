@@ -11,6 +11,9 @@
     <string name="p3">P3</string>
     <string name="player3_placeholder">Player3</string>
     <string name="play_game">PLAY GAME</string>
+    <string name="currrent_player_turn">It is %1$s\'s turn!</string>
+    <string name="guess">GUESS</string>
+    <string name="player_score">%1$s has %2$d points!</string>
     <string name="win_callout">%1$s Wins!</string>
     <string name="play_again">PLAY AGAIN</string>
 </resources>

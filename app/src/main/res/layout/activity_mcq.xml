@@ -9,6 +9,17 @@
     tools:context=".McqActivity">
 
     <TextView
+        android:id="@+id/currentPlayerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/currrent_player_turn"
+        android:textColor="#03A9F4"
+        android:textSize="32sp" />
+
+    <TextView
         android:id="@+id/mcqQuestionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +33,7 @@
     <RadioGroup
         android:id="@+id/mcqAnswerRadioGroup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp">
@@ -67,5 +78,25 @@
             android:textColor="#64CFCE"
             android:textSize="20sp" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/mcqGuessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/guess" />
+
+    <TextView
+        android:id="@+id/player1Score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/player_score" />
+
+    <TextView
+        android:id="@+id/player2Score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
 </LinearLayout>

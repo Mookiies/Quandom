@@ -13,7 +13,9 @@ import android.widget.NumberPicker;
 import java.util.ArrayList;
 
 import utils.Player;
-import utils.QuestionsCreator;
+import utils.GameModel;
+
+import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
 
 public class PlayerSelectionActivity extends AppCompatActivity {
 
@@ -135,11 +137,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlayerSelectionActivity.this, null);
-                intent.putExtra("Players", players);
-                intent.putExtra("Questions", new QuestionsCreator(3).getQuestions());
+                Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
+                intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, players));
                 startActivity(intent);
             }
         });
     }
+
 }
