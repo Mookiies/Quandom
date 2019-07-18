@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2A3765"
+    android:orientation="vertical"
+    tools:context=".McqActivity">
+
+    <TextView
+        android:id="@+id/mcqQuestionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="MCQ Question goes here"
+        android:textColor="#03A9F4"
+        android:textSize="32sp" />
+
+    <RadioGroup
+        android:id="@+id/mcqAnswerRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <RadioButton
+            android:id="@+id/mcqAnswerAButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Answer A"
+            android:textColor="#64CFCE"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/mcqAnswerBButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Answer B"
+            android:textColor="#64CFCE"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/mcqAnswerCButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Answer C"
+            android:textColor="#64CFCE"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/mcqAnswerDButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Answer D"
+            android:textColor="#64CFCE"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+</LinearLayout>

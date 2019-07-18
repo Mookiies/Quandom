@@ -2,8 +2,8 @@
     <string name="app_name">Quandom</string>
     <string name="player_selection_title"># of Players:</string>
     <string name="point_selection_title"># of Points to win:</string>
-    <string name="quickPlayText">QUICK PLAY</string>
-    <string name="customPlayText">CUSTOM PLAY</string>
+    <string name="quick_play_text">QUICK PLAY</string>
+    <string name="custom_play_text">CUSTOM PLAY</string>
     <string name="p1">P1</string>
     <string name="player1_placeholder">Player1</string>
     <string name="p2">P2</string>
