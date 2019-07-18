@@ -1,15 +1,12 @@
 package com.malcolmscruggs.quandom;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 import utils.Player;
@@ -61,7 +58,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
                         if (player3 == null) {
-                            player3 = new Player("Player3", (ImageView)findViewById(R.id.p3AvatarImg));
+                            player3 = new Player("Player3", R.id.p3AvatarImg);
                             final EditText playerNameChange3 = findViewById(R.id.p3NameText);
                             playerNameChange3.addTextChangedListener(new TextWatcher() {
                                 @Override
@@ -123,8 +120,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // get player avatar editors and set up listeners
 
         // create Players
-        player1 = new Player("Player1", (ImageView)findViewById(R.id.p1AvatarImg));
-        player2 = new Player("Player2", (ImageView)findViewById(R.id.p2AvatarImg));
+        player1 = new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg);
+        player2 = new Player(getString(R.string.player1_placeholder), R.id.p2AvatarImg);
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);

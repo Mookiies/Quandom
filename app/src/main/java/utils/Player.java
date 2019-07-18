@@ -1,14 +1,14 @@
 package utils;
 
-import android.widget.ImageView;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
 
-    String playerName;
-    ImageView playerAvatar;
-    int playerScore;
+    private String playerName;
+    private int playerAvatar;
+    private int playerScore;
 
-    public Player(String playerName, ImageView playerAvatar) {
+    public Player(String playerName, int playerAvatar) {
         this.playerName = playerName;
         this.playerAvatar = playerAvatar;
         this.playerScore = 0;
@@ -18,7 +18,7 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public void setPlayerAvatar(ImageView playerAvatar) {
+    public void setPlayerAvatar(int playerAvatar) {
         this.playerAvatar = playerAvatar;
     }
 
@@ -30,11 +30,20 @@ public class Player {
         return playerName;
     }
 
-    public ImageView getPlayerAvatar() {
+    public int getPlayerAvatar() {
         return playerAvatar;
     }
 
     public int getPlayerScore() {
         return playerScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerName='" + playerName + '\'' +
+                ", playerAvatar=" + playerAvatar +
+                ", playerScore=" + playerScore +
+                '}';
     }
 }
