@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".McqActivity"></activity>
         <activity android:name=".PlayerSelectionActivity" />
+        <activity android:name=".WinActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

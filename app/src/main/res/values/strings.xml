@@ -11,4 +11,6 @@
     <string name="p3">P3</string>
     <string name="player3_placeholder">Player3</string>
     <string name="play_game">PLAY GAME</string>
+    <string name="win_callout">%1$s Wins!</string>
+    <string name="play_again">PLAY AGAIN</string>
 </resources>
