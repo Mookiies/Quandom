@@ -59,12 +59,15 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
-                        if (players.get(2) == null) {
+                        try {
+                            players.get(2);
+                        } catch (IndexOutOfBoundsException e) {
                             players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
                             final EditText playerNameChange3 = findViewById(R.id.p3NameText);
                             playerNameChange3.addTextChangedListener(new TextWatcher() {
                                 @Override
-                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                }
 
                                 @Override
                                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,7 +75,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void afterTextChanged(Editable editable) { }
+                                public void afterTextChanged(Editable editable) {
+                                }
                             });
                         }
                         break;
