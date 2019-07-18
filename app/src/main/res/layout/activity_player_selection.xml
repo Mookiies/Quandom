@@ -8,160 +8,172 @@
     android:background="#F5F5DC"
     tools:context=".PlayerSelectionActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/player_selection_title"
-            android:textSize="24dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"/>
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <NumberPicker
-            android:id="@+id/playersPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="130dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/player_selection_title"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"/>
 
-    </LinearLayout>
+                <NumberPicker
+                    android:id="@+id/playersPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="130dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="153dp"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:text="@string/point_selection_title"
-            android:textSize="24dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="153dp"
+                android:orientation="horizontal">
 
-        <NumberPicker
-            android:id="@+id/pointsPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="70dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:text="@string/point_selection_title"
+                    android:textSize="24sp" />
 
-    </LinearLayout>
+                <NumberPicker
+                    android:id="@+id/pointsPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="70dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:text="P1"
-            android:textSize="24dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/p1NameText"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:minEms="2"
-            android:maxEms="20"
-            android:inputType="text"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:text="Player1" />
+                <TextView
+                    android:text="@string/p1"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"/>
 
-        <ImageView
-            android:id="@+id/p1AvatarImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="40dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/iconfinder_imoticon_3_210815" />
+                <EditText
+                    android:id="@+id/p1NameText"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:minEms="2"
+                    android:maxEms="20"
+                    android:inputType="text"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="50dp"
+                    android:text="@string/player1_placeholder" />
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/p1AvatarImg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/iconfinder_imoticon_3_210815" />
 
-    <LinearLayout
-        android:id="@+id/p2Layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+            </LinearLayout>
 
-        <TextView
-            android:text="P2"
-            android:textSize="24dp"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/p2Layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/p2NameText"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:minEms="2"
-            android:maxEms="20"
-            android:layout_gravity="center"
-            android:inputType="text"
-            android:layout_marginLeft="50dp"
-            android:text="Player2" />
+                <TextView
+                    android:text="@string/p2"
+                    android:textSize="24sp"
+                    android:layout_marginStart="30dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/p2AvatarImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="40dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/iconfinder_smiley__7_2291007" />
+                <EditText
+                    android:id="@+id/p2NameText"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:minEms="2"
+                    android:maxEms="20"
+                    android:layout_gravity="center"
+                    android:inputType="text"
+                    android:layout_marginStart="50dp"
+                    android:text="@string/player2_placeholder" />
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/p2AvatarImg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/iconfinder_smiley__7_2291007" />
 
-    <LinearLayout
-        android:id="@+id/p3Layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
+            </LinearLayout>
 
-        <TextView
-            android:text="P3"
-            android:textSize="24dp"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/p3Layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
-        <EditText
-            android:id="@+id/p3NameText"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:minEms="2"
-            android:maxEms="20"
-            android:inputType="text"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:text="Player3" />
+                <TextView
+                    android:text="@string/p3"
+                    android:textSize="24sp"
+                    android:layout_marginStart="30dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/p3AvatarImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            app:srcCompat="@drawable/iconfinder_smiley__14_2291004" />
+                <EditText
+                    android:id="@+id/p3NameText"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:minEms="2"
+                    android:maxEms="20"
+                    android:inputType="text"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="50dp"
+                    android:text="@string/player3_placeholder" />
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/p3AvatarImg"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    app:srcCompat="@drawable/iconfinder_smiley__14_2291004" />
 
-    <Button
-        android:id="@+id/playButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:text="PLAY GAME"
-        android:background="#00FF00" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/play_game"
+                android:background="#00FF00"
+                android:layout_marginBottom="40dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </LinearLayout>
