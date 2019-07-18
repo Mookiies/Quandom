@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Quandom</string>
+    <string name="player_selection_title"># of Players:</string>
+    <string name="point_selection_title"># of Points to win:</string>
     <string name="quickPlayText">QUICK PLAY</string>
     <string name="customPlayText">CUSTOM PLAY</string>
 </resources>

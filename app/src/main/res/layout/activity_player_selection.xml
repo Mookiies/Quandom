@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5DC"
+    tools:context=".PlayerSelectionActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_selection_title"
+            android:textSize="24dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"/>
+
+        <NumberPicker
+            android:id="@+id/playersPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="130dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="153dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:text="@string/point_selection_title"
+            android:textSize="24dp" />
+
+        <NumberPicker
+            android:id="@+id/pointsPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="P1"
+            android:textSize="24dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:id="@+id/p1NameText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:minEms="2"
+            android:maxEms="20"
+            android:inputType="text"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:text="Player1" />
+
+        <ImageView
+            android:id="@+id/p1AvatarImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/iconfinder_imoticon_3_210815" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p2Layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="P2"
+            android:textSize="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/p2NameText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:minEms="2"
+            android:maxEms="20"
+            android:layout_gravity="center"
+            android:inputType="text"
+            android:layout_marginLeft="50dp"
+            android:text="Player2" />
+
+        <ImageView
+            android:id="@+id/p2AvatarImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="40dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/iconfinder_smiley__7_2291007" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p3Layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <TextView
+            android:text="P3"
+            android:textSize="24dp"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/p3NameText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:minEms="2"
+            android:maxEms="20"
+            android:inputType="text"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:text="Player3" />
+
+        <ImageView
+            android:id="@+id/p3AvatarImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            app:srcCompat="@drawable/iconfinder_smiley__14_2291004" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="PLAY GAME"
+        android:background="#00FF00" />
+
+</LinearLayout>
