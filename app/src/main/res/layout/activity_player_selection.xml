@@ -170,6 +170,7 @@
                 android:layout_gravity="center"
                 android:text="@string/play_game"
                 android:background="#00FF00"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="40dp"/>
         </LinearLayout>
     </ScrollView>

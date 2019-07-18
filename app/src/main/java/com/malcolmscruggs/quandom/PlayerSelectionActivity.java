@@ -126,6 +126,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // get player avatar editors and set up listeners
 
         // create Players
+        players = new ArrayList<>(3);
         players.add(new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg));
         players.add(new Player(getString(R.string.player2_placeholder), R.id.p2AvatarImg));
 
