@@ -1,5 +1,6 @@
 package com.malcolmscruggs.quandom;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,8 @@ import java.util.List;
 import utils.GameModel;
 import utils.Player;
 import utils.Question;
+
+import static com.malcolmscruggs.quandom.WinActivity.WINNING_PLAYER_KEY;
 
 public class McqActivity extends AppCompatActivity {
 
@@ -64,6 +67,9 @@ public class McqActivity extends AppCompatActivity {
         if (gameModel.isGameOver()) {
             Player winner = gameModel.getWinningPlayer();
             currentPlayerTextView.setText(winner.getPlayerName());
+            Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+            intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
+            startActivity(intent);
             return;
         }
 
