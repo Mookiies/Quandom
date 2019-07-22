@@ -114,14 +114,14 @@ public class McqActivity extends AppCompatActivity {
                 guess = 3;
                 break;
             default:
-                guess = -1;
+                return;
         }
 
-        boolean isCorrectGuess = gameModel.guessQuestion(guess);
+        boolean haveAllPlayersGuessed = gameModel.guessQuestion(guess);
 
-        Log.d("ON GUESS", isCorrectGuess + "");
+        Log.d("ON GUESS", haveAllPlayersGuessed + "");
 
-        if (isCorrectGuess) {
+        if (haveAllPlayersGuessed) {
             setCurrentQuestion();
         } else {
             setCurrentPlayer();
