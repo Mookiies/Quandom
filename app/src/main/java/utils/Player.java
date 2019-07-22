@@ -2,7 +2,7 @@ package utils;
 
 import java.io.Serializable;
 
-public class Player implements Serializable {
+public class Player implements Comparable<Player>, Serializable {
 
     private String playerName;
     private int playerAvatar;
@@ -49,5 +49,10 @@ public class Player implements Serializable {
                 ", playerAvatar=" + playerAvatar +
                 ", playerScore=" + playerScore +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return playerScore - o.getPlayerScore();
     }
 }

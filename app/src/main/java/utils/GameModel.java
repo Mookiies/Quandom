@@ -4,9 +4,10 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
-final public class GameModel implements Serializable { //TODO turn into a model class
+final public class GameModel implements Serializable {
 
     private static final long serialVersionUID = 1111111112L;
 
@@ -84,10 +85,7 @@ final public class GameModel implements Serializable { //TODO turn into a model 
     }
 
     public Player getWinningPlayer() {
-        //TODO support more players
-        Player p1 = players.get(0);
-        Player p2 = players.get(1);
-        return p1.getPlayerScore() > p2.getPlayerScore() ? p1 : p2;
+        return Collections.max(players);
     }
 
     public boolean guessQuestion(int guess) {
