@@ -26,6 +26,10 @@ public class Player implements Serializable {
         this.playerScore = playerScore;
     }
 
+    public void increasePlayerScoreOnce() {
+        this.playerScore++;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
