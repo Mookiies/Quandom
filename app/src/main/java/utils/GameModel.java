@@ -2,8 +2,13 @@ package utils;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -27,43 +32,35 @@ final public class GameModel implements Serializable {
         // TODO randomize which player goes first the first time
 
         Log.d("RESPONSE", response);
-
-        ArrayList<String> questionTexts = new ArrayList<>();
-        ArrayList<ArrayList<String>> answers = new ArrayList<>();
-        ArrayList<Integer> correctAnswers = new ArrayList<>();
-
-        questionTexts.add("Which is not a member of the Microsoft Office Suite?");
-        ArrayList<String> answers1 = new ArrayList<>();
-        answers1.add("Excel");
-        answers1.add("Outlook");
-        answers1.add("Teams");
-        answers1.add("Slides");
-        answers.add(answers1);
-        correctAnswers.add(3);
-
-        questionTexts.add("In what year did George Washington first take office as president of the United States?");
-        ArrayList<String> answers2 = new ArrayList<>();
-        answers2.add("1776");
-        answers2.add("1783");
-        answers2.add("1789");
-        answers2.add("1800");
-        answers.add(answers2);
-        correctAnswers.add(2);
-
-        questionTexts.add("What does the term \"icosahedron\" refer to?");
-        ArrayList<String> answers3 = new ArrayList<>();
-        answers3.add("a 24-sided polyhedron");
-        answers3.add("a 20-sided polyhedron");
-        answers3.add("a 15-sided polyhedron");
-        answers3.add("a 12-sided polyhedron");
-        answers.add(answers3);
-        correctAnswers.add(1);
-
         this.questions = new ArrayList<>();
+        this.populateQuestions(response);
+    }
 
-        for (int i = 0; i < numQuestions; i++) {
-            Question question = new Question(questionTexts.get(i), answers.get(i), correctAnswers.get(i));
-            this.questions.add(question);
+    private void populateQuestions(String response) {
+        try {
+            JSONObject json = new JSONObject(response);
+            JSONArray ques = json.getJSONArray("results");
+            for (int i = 0; i < ques.length(); i++) {
+                JSONObject question = ques.getJSONObject(i);
+                String category = question.getString("category");
+                String questionText = question.getString("question");
+                String correctAns = question.getString("correct_answer");
+                JSONArray ans = question.getJSONArray("incorrect_answers");
+                Random rand = new Random();
+                int correctIdx = rand.nextInt(4);
+                ArrayList<String> answers = new ArrayList<>();
+
+                for (int j = 0; j < ans.length(); j++) {
+                    answers.add(ans.getString(j));
+                }
+                answers.add(correctIdx, correctAns);
+                Question questionObj = new Question(questionText, answers, correctIdx);
+                this.questions.add(questionObj);
+                Log.d("ANS", "ques: " + questionObj.toString());
+
+            }
+        } catch (JSONException e) {
+            Log.d("JSONOBJ", e.getMessage());
         }
     }
 
