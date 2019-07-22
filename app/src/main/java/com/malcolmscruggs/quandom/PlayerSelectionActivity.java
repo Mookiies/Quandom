@@ -106,17 +106,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
-                ArrayList<Player> gamePlayer = new ArrayList<>(players);
-                if (numPlayers == 1) {
-                    gamePlayer.remove(2);
-                    gamePlayer.remove(1);
-                } else if (numPlayers == 2) {
-                    gamePlayer.remove(2);
-                }
-                intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer));
                 populateQuestions(10, 9, 1, true);
-                startActivity(intent);
             }
         });
     }
@@ -143,10 +133,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         }
         String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
 
-        StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("APIResp", response);
+                startIntent(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -155,7 +146,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             }
         });
         queue.add(stringRquest);
-
     }
 
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
@@ -173,4 +163,16 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
     }
 
+    private void startIntent(String response) {
+        Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
+        ArrayList<Player> gamePlayer = new ArrayList<>(players);
+        if (numPlayers == 1) {
+            gamePlayer.remove(2);
+            gamePlayer.remove(1);
+        } else if (numPlayers == 2) {
+            gamePlayer.remove(2);
+        }
+        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
+        startActivity(intent);
+    }
 }

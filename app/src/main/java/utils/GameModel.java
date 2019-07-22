@@ -20,11 +20,13 @@ final public class GameModel implements Serializable {
 
     private HashMap<Integer, Integer> playerIdxToGuessIdx;
 
-    public GameModel(int numQuestions, ArrayList<Player> players) {
+    public GameModel(int numQuestions, ArrayList<Player> players, String response) {
         this.players = players;
         playerIdxToGuessIdx =  new HashMap<>();
 
         // TODO randomize which player goes first the first time
+
+        Log.d("RESPONSE", response);
 
         ArrayList<String> questionTexts = new ArrayList<>();
         ArrayList<ArrayList<String>> answers = new ArrayList<>();
