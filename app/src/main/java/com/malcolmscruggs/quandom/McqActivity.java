@@ -28,6 +28,7 @@ public class McqActivity extends AppCompatActivity {
     TextView questionTextView;
     TextView player1Score;
     TextView player2Score;
+    TextView player3Score;
     RadioGroup mcqRadioGroup;
     RadioButton radioButtonA;
     RadioButton radioButtonB;
@@ -47,6 +48,7 @@ public class McqActivity extends AppCompatActivity {
         questionTextView = findViewById(R.id.mcqQuestionTextView);
         player1Score = findViewById(R.id.player1Score);
         player2Score = findViewById(R.id.player2Score);
+        player3Score = findViewById(R.id.player3Score);
         mcqRadioGroup = findViewById(R.id.mcqAnswerRadioGroup);
         radioButtonA = findViewById(R.id.mcqAnswerAButton);
         radioButtonB = findViewById(R.id.mcqAnswerBButton);
@@ -61,12 +63,19 @@ public class McqActivity extends AppCompatActivity {
                 onGuess();
             }
         });
+
+        List<Player> players = gameModel.getPlayers();
+        if (players.size() > 1) {
+            player2Score.setVisibility(View.VISIBLE);
+        }
+        if (players.size() > 2) {
+            player3Score.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setCurrentQuestion() {
         if (gameModel.isGameOver()) {
             Player winner = gameModel.getWinningPlayer();
-            currentPlayerTextView.setText(winner.getPlayerName());
             Intent intent = new Intent(getApplicationContext(), WinActivity.class);
             intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
             startActivity(intent);
@@ -93,9 +102,17 @@ public class McqActivity extends AppCompatActivity {
     private void setPlayerScores() {
         List<Player> players = gameModel.getPlayers();
         Player p1 = players.get(0);
-        Player p2 = players.get(1);
         player1Score.setText(getString(R.string.player_score, p1.getPlayerName(), p1.getPlayerScore()));
-        player2Score.setText(getString(R.string.player_score, p2.getPlayerName(), p2.getPlayerScore()));
+
+        if (players.size() > 1) {
+            Player p2 = players.get(1);
+            player2Score.setText(getString(R.string.player_score, p2.getPlayerName(), p2.getPlayerScore()));
+        }
+
+        if (players.size() > 2) {
+            Player p3 = players.get(2);
+            player3Score.setText(getString(R.string.player_score, p3.getPlayerName(), p3.getPlayerScore()));
+        }
     }
 
     private void onGuess() {
@@ -114,14 +131,14 @@ public class McqActivity extends AppCompatActivity {
                 guess = 3;
                 break;
             default:
-                guess = -1;
+                return;
         }
 
-        boolean isCorrectGuess = gameModel.guessQuestion(guess);
+        boolean haveAllPlayersGuessed = gameModel.guessQuestion(guess);
 
-        Log.d("ON GUESS", isCorrectGuess + "");
+        Log.d("ON GUESS", haveAllPlayersGuessed + "");
 
-        if (isCorrectGuess) {
+        if (haveAllPlayersGuessed) {
             setCurrentQuestion();
         } else {
             setCurrentPlayer();

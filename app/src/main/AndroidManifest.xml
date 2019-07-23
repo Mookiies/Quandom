@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".McqActivity"></activity>
-        <activity android:name=".PlayerSelectionActivity" />
+        <activity
+            android:name=".PlayerSelectionActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".WinActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,19 +1,30 @@
 package utils;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
-final public class GameModel implements Serializable { //TODO turn into a model class
+final public class GameModel implements Serializable {
+
+    private static final long serialVersionUID = 1111111112L;
 
     private ArrayList<Question> questions;
     private ArrayList<Player> players;
-    private int currentQuestion = 0;
+    private int currentQuestionIdx = 0;
     private int firstGuessingPlayer = 0;
     private int currentGuessingPlayer = 0;
     private boolean isGameOver = false;
 
+    private HashMap<Integer, Integer> playerIdxToGuessIdx;
+
     public GameModel(int numQuestions, ArrayList<Player> players) {
         this.players = players;
+        playerIdxToGuessIdx =  new HashMap<>();
+
+        // TODO randomize which player goes first the first time
 
         ArrayList<String> questionTexts = new ArrayList<>();
         ArrayList<ArrayList<String>> answers = new ArrayList<>();
@@ -55,10 +66,10 @@ final public class GameModel implements Serializable { //TODO turn into a model 
     }
 
     public Question getCurrentQuestion() {
-        if (isGameOver || questions.size() <= currentQuestion) {
+        if (isGameOver || questions.size() <= currentQuestionIdx) {
             return null;
         }
-        return questions.get(currentQuestion);
+        return questions.get(currentQuestionIdx);
     }
 
     public Player getGuessingPlayer() {
@@ -74,45 +85,53 @@ final public class GameModel implements Serializable { //TODO turn into a model 
     }
 
     public Player getWinningPlayer() {
-        Player p1 = players.get(0);
-        Player p2 = players.get(1);
-        return p1.getPlayerScore() > p2.getPlayerScore() ? p1 : p2;
+        return Collections.max(players);
     }
 
     public boolean guessQuestion(int guess) {
-        Question currentQuestion = getCurrentQuestion();
-        if (currentQuestion != null && currentQuestion.isCorrectAnswer(guess)) {
-            Player p = players.get(currentGuessingPlayer);
-            p.increasePlayerScoreOnce();
+        playerIdxToGuessIdx.put(currentGuessingPlayer, guess);
+        if (playerIdxToGuessIdx.size() == players.size()) { // all players have answered
+            grantPlayerScore();
+            playerIdxToGuessIdx.clear();
             moveToNextQuestion();
             return true;
-        } else {
-            moveToNextGuessingPlayer();
-            return false;
+        }
+
+        moveToNextGuessingPlayer();
+        return false;
+    }
+
+    private void grantPlayerScore() {
+        Question currentQuestion = questions.get(currentQuestionIdx);
+        int correctAnswer = currentQuestion.getCorrectAnswer();
+        for (int playerIdx : playerIdxToGuessIdx.keySet()) {
+            int guess = playerIdxToGuessIdx.get(playerIdx);
+            if (guess == correctAnswer) {
+                Player player = players.get(playerIdx);
+                player.increasePlayerScoreOnce();
+            }
         }
     }
 
-    public boolean moveToNextQuestion() {
-        currentQuestion++;
-        moveToNextFirstGuessingPlayer();
-        currentGuessingPlayer = firstGuessingPlayer;
-
-        if (currentQuestion >= questions.size()) {
-            //todo winning logic
+    private void moveToNextQuestion() {
+        currentQuestionIdx++;
+        if (currentQuestionIdx >= questions.size()) {
             isGameOver = true;
-            return false;
-        }  else {
-            return true;
+            return;
         }
+
+        firstGuessingPlayer++;
+        if (firstGuessingPlayer >= players.size()) {
+            firstGuessingPlayer = 0;
+        }
+        currentGuessingPlayer = firstGuessingPlayer;
     }
 
     private void moveToNextGuessingPlayer() {
-        currentGuessingPlayer = currentGuessingPlayer == 1 ? 0 : 1;
-    }
-
-    private void moveToNextFirstGuessingPlayer() {
-        firstGuessingPlayer = firstGuessingPlayer == 1 ? 0 : 1;
-
+        currentGuessingPlayer++;
+        if (currentGuessingPlayer >= players.size()) {
+            currentGuessingPlayer = 0;
+        }
     }
 
     public ArrayList<Question> getQuestions() {
@@ -124,9 +143,11 @@ final public class GameModel implements Serializable { //TODO turn into a model 
         return "GameModel{" +
                 "questions=" + questions +
                 ", players=" + players +
-                ", currentQuestion=" + currentQuestion +
+                ", currentQuestionIdx=" + currentQuestionIdx +
                 ", firstGuessingPlayer=" + firstGuessingPlayer +
                 ", currentGuessingPlayer=" + currentGuessingPlayer +
+                ", isGameOver=" + isGameOver +
+                ", playerIdxToGuessIdx=" + playerIdxToGuessIdx +
                 '}';
     }
 }
