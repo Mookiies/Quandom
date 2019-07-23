@@ -12,9 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    public void quickPlayPress(View view) {
         Button quickPlay = findViewById(R.id.quickPlayButton);
         quickPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -22,5 +20,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(quickPlayItent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }
