@@ -99,6 +99,7 @@ public class McqActivity extends AppCompatActivity {
     private void setCurrentPlayer() {
         Player player = gameModel.getGuessingPlayer();
         currentPlayerTextView.setText(getString(R.string.currrent_player_turn, player.getPlayerName()));
+        findViewById(R.id.mcqView).setBackgroundColor(player.getPlayerColor());
     }
 
     private void setPlayerScores() {

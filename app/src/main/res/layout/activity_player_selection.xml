@@ -71,7 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,13 +95,13 @@
                     android:text="@string/player1_placeholder"
                     android:textColor="#03A9F4" />
 
-                <ImageView
-                    android:id="@+id/p1AvatarImg"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                <Button
+                    android:id="@+id/p1Color"
+                    android:background="@color/red"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
-                    app:srcCompat="@drawable/iconfinder_imoticon_3_210815" />
+                    android:layout_marginStart="40dp" />
 
             </LinearLayout>
 
@@ -108,7 +109,8 @@
                 android:id="@+id/p2Layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,13 +133,13 @@
                     android:text="@string/player2_placeholder"
                     android:textColor="#03A9F4" />
 
-                <ImageView
-                    android:id="@+id/p2AvatarImg"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                <Button
+                    android:id="@+id/p2Color"
+                    android:background="@color/green"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
-                    app:srcCompat="@drawable/iconfinder_smiley__7_2291007" />
+                    android:layout_marginStart="40dp" />
 
             </LinearLayout>
 
@@ -145,7 +147,8 @@
                 android:id="@+id/p3Layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,13 +169,13 @@
                     android:minEms="2"
                     android:text="@string/player3_placeholder" />
 
-                <ImageView
-                    android:id="@+id/p3AvatarImg"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                <Button
+                    android:id="@+id/p3Color"
+                    android:background="@color/blue"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"
-                    app:srcCompat="@drawable/iconfinder_smiley__14_2291004" />
+                    android:layout_marginStart="40dp" />
 
             </LinearLayout>
 
