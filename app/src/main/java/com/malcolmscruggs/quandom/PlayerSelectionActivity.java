@@ -1,16 +1,27 @@
 package com.malcolmscruggs.quandom;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import utils.Player;
 import utils.GameModel;
@@ -95,18 +106,46 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
-                ArrayList<Player> gamePlayer = new ArrayList<>(players);
-                if (numPlayers == 1) {
-                    gamePlayer.remove(2);
-                    gamePlayer.remove(1);
-                } else if (numPlayers == 2) {
-                    gamePlayer.remove(2);
-                }
-                intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer));
-                startActivity(intent);
+                populateQuestions(10, 9, 1, true);
             }
         });
+    }
+
+    private void populateQuestions(int numQuestions, int category, int difficulty, boolean mcq) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        //Categories
+        List<String> cats = Arrays.asList("general-knowledge");
+        ArrayList<String> categories = new ArrayList<>();
+        categories.addAll(cats);
+
+        //Difficulty
+        List<String> dif = Arrays.asList("easy", "medium", "hard");
+        ArrayList<String> difficulties = new ArrayList<>();
+        difficulties.addAll(dif);
+
+        //Question Type
+        String mcqOrTF;
+        if (mcq) {
+            mcqOrTF = "multiple";
+        } else {
+            mcqOrTF = "boolean";
+        }
+        String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
+
+        final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("APIResp", response);
+                startIntent(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("APIResp", error.getMessage());
+            }
+        });
+        queue.add(stringRquest);
     }
 
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
@@ -124,4 +163,16 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
     }
 
+    private void startIntent(String response) {
+        Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
+        ArrayList<Player> gamePlayer = new ArrayList<>(players);
+        if (numPlayers == 1) {
+            gamePlayer.remove(2);
+            gamePlayer.remove(1);
+        } else if (numPlayers == 2) {
+            gamePlayer.remove(2);
+        }
+        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
+        startActivity(intent);
+    }
 }

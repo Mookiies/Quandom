@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2A3765"
     android:orientation="vertical"
-    android:background="#F5F5DC"
     tools:context=".PlayerSelectionActivity">
 
     <ScrollView
@@ -15,19 +15,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/player_selection_title"
-                    android:textSize="24sp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="40dp"/>
+                    android:layout_marginStart="40dp"
+                    android:text="@string/player_selection_title"
+                    android:textColor="#03A9F4"
+                    android:textSize="24sp" />
 
                 <NumberPicker
                     android:id="@+id/playersPicker"
@@ -41,6 +46,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="153dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -49,6 +55,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="40dp"
                     android:text="@string/point_selection_title"
+                    android:textColor="#03A9F4"
                     android:textSize="24sp" />
 
                 <NumberPicker
@@ -63,33 +70,36 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:text="@string/p1"
-                    android:textSize="24sp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"/>
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/p1"
+                    android:textColor="#03A9F4"
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/p1NameText"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:minEms="2"
-                    android:maxEms="20"
-                    android:inputType="text"
                     android:layout_gravity="center"
                     android:layout_marginStart="50dp"
-                    android:text="@string/player1_placeholder" />
+                    android:inputType="text"
+                    android:maxEms="20"
+                    android:minEms="2"
+                    android:text="@string/player1_placeholder"
+                    android:textColor="#03A9F4" />
 
                 <ImageView
                     android:id="@+id/p1AvatarImg"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginStart="40dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
                     app:srcCompat="@drawable/iconfinder_imoticon_3_210815" />
 
             </LinearLayout>
@@ -97,33 +107,36 @@
             <LinearLayout
                 android:id="@+id/p2Layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
                 <TextView
-                    android:text="@string/p2"
-                    android:textSize="24sp"
-                    android:layout_marginStart="30dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/p2"
+                    android:textColor="#03A9F4"
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/p2NameText"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:minEms="2"
-                    android:maxEms="20"
                     android:layout_gravity="center"
-                    android:inputType="text"
                     android:layout_marginStart="50dp"
-                    android:text="@string/player2_placeholder" />
+                    android:inputType="text"
+                    android:maxEms="20"
+                    android:minEms="2"
+                    android:text="@string/player2_placeholder"
+                    android:textColor="#03A9F4" />
 
                 <ImageView
                     android:id="@+id/p2AvatarImg"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_marginStart="40dp"
                     android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
                     app:srcCompat="@drawable/iconfinder_smiley__7_2291007" />
 
             </LinearLayout>
@@ -135,22 +148,22 @@
                 android:visibility="gone">
 
                 <TextView
-                    android:text="@string/p3"
-                    android:textSize="24sp"
-                    android:layout_marginStart="30dp"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/p3"
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/p3NameText"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:minEms="2"
-                    android:maxEms="20"
-                    android:inputType="text"
                     android:layout_gravity="center"
                     android:layout_marginStart="50dp"
+                    android:inputType="text"
+                    android:maxEms="20"
+                    android:minEms="2"
                     android:text="@string/player3_placeholder" />
 
                 <ImageView
@@ -168,13 +181,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/play_game"
-                android:background="#00FF00"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"/>
+                android:layout_marginBottom="40dp"
+                android:background="#0C60A0"
+                android:text="@string/play_game"
+                android:textColor="#03A9F4" />
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>
