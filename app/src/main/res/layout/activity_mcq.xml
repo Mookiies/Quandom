@@ -49,16 +49,23 @@
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/currentPlayerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/currrent_player_turn"
-        android:textColor="#03A9F4"
-        android:textSize="32sp" />
+    <RelativeLayout
+        android:id="@+id/currPlayerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/currentPlayerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/currrent_player_turn"
+            android:textColor="#03A9F4"
+            android:textSize="32sp" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/mcqQuestionTextView"
