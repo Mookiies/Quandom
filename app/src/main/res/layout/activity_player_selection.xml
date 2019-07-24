@@ -97,7 +97,7 @@
 
                 <Button
                     android:id="@+id/p1Color"
-                    android:background="@color/red"
+                    android:background="@color/redCustom"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
@@ -135,7 +135,7 @@
 
                 <Button
                     android:id="@+id/p2Color"
-                    android:background="@color/green"
+                    android:background="@color/greenCustom"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
@@ -148,6 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp">
 
                 <TextView
@@ -156,6 +157,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="30dp"
                     android:text="@string/p3"
+                    android:textColor="#03A9F4"
                     android:textSize="24sp" />
 
                 <EditText
@@ -167,11 +169,12 @@
                     android:inputType="text"
                     android:maxEms="7"
                     android:minEms="2"
+                    android:textColor="#03A9F4"
                     android:text="@string/player3_placeholder" />
 
                 <Button
                     android:id="@+id/p3Color"
-                    android:background="@color/blue"
+                    android:background="@color/blueCustom"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"

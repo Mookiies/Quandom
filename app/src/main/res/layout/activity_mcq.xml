@@ -19,7 +19,7 @@
             android:id="@+id/p1Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/red"
+            android:background="@color/redCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
@@ -27,7 +27,7 @@
             android:id="@+id/p2Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/green"
+            android:background="@color/greenCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
@@ -35,7 +35,7 @@
             android:id="@+id/p3Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/blue"
+            android:background="@color/blueCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
@@ -43,7 +43,7 @@
             android:id="@+id/p4Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/blue"
+            android:background="@color/blueCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
