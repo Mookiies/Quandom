@@ -187,17 +187,24 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int background = ((ColorDrawable)button.getBackground()).getColor();
                 int index = colors.indexOf(background) + 1;
-                if (index == colors.size()) {
+                Log.d("index0", Integer.toString(index));
+                if (index >= colors.size()) {
                     index = 0;
                 }
+                Log.d("index1", Integer.toString(index));
                 for (int i = 0; i < numPlayers; i++) {
-                    if (players.get(i).getPlayerColor() == colors.get(index)) {
-                        index++;
+                    if (index < colors.size()) {
+                        if (players.get(i).getPlayerColor() == colors.get(index)) {
+                            index++;
+                            Log.d("index2", Integer.toString(index));
+                        }
                     }
                 }
-                if (index == colors.size()) {
+                Log.d("index3", Integer.toString(index));
+                if (index >= colors.size()) {
                     index = 0;
                 }
+                Log.d("index4", Integer.toString(index));
                 int newBackground = colors.get(index);
                 players.get(playerIdx).setPlayerColor(newBackground);
                 button.setBackgroundColor(newBackground);

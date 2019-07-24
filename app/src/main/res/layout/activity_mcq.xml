@@ -9,6 +9,46 @@
     android:orientation="vertical"
     tools:context=".McqActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000">
+
+        <TextView
+            android:id="@+id/p1Score"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/p2Score"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@color/green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/p3Score"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/p4Score"
+            android:text=""
+            android:textSize="20dp"
+            android:background="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/currentPlayerTextView"
         android:layout_width="wrap_content"
@@ -87,25 +127,5 @@
         android:layout_gravity="center"
         android:backgroundTint="@color/colorPrimary"
         android:text="@string/guess" />
-
-    <TextView
-        android:id="@+id/player1Score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/player_score" />
-
-    <TextView
-        android:id="@+id/player2Score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/player3Score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
 
 </LinearLayout>
