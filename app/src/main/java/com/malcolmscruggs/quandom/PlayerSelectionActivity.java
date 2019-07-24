@@ -124,7 +124,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                populateQuestions(10, 9, 1, true);
+                populateQuestions(numPoints, 9, 1, true);
             }
         });
     }
