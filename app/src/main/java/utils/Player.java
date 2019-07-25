@@ -1,16 +1,22 @@
 package utils;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+
+import com.malcolmscruggs.quandom.R;
+
 import java.io.Serializable;
 
 public class Player implements Comparable<Player>, Serializable {
 
     private String playerName;
-    private int playerAvatar;
+    private int playerColor;
     private int playerScore;
 
-    public Player(String playerName, int playerAvatar) {
+    public Player(String playerName, int playerColor) {
         this.playerName = playerName;
-        this.playerAvatar = playerAvatar;
+        this.playerColor = playerColor;
         this.playerScore = 0;
     }
 
@@ -18,8 +24,8 @@ public class Player implements Comparable<Player>, Serializable {
         this.playerName = playerName;
     }
 
-    public void setPlayerAvatar(int playerAvatar) {
-        this.playerAvatar = playerAvatar;
+    public void setPlayerColor(int playerColor) {
+        this.playerColor = playerColor;
     }
 
     public void setPlayerScore(int playerScore) {
@@ -34,8 +40,8 @@ public class Player implements Comparable<Player>, Serializable {
         return playerName;
     }
 
-    public int getPlayerAvatar() {
-        return playerAvatar;
+    public int getPlayerColor() {
+        return playerColor;
     }
 
     public int getPlayerScore() {
@@ -46,7 +52,7 @@ public class Player implements Comparable<Player>, Serializable {
     public String toString() {
         return "Player{" +
                 "playerName='" + playerName + '\'' +
-                ", playerAvatar=" + playerAvatar +
+                ", playerColor=" + playerColor +
                 ", playerScore=" + playerScore +
                 '}';
     }

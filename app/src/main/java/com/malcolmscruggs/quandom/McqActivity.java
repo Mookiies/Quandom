@@ -31,6 +31,7 @@ public class McqActivity extends AppCompatActivity {
     TextView player1Score;
     TextView player2Score;
     TextView player3Score;
+    TextView player4Score;
     RadioGroup mcqRadioGroup;
     RadioButton radioButtonA;
     RadioButton radioButtonB;
@@ -48,9 +49,10 @@ public class McqActivity extends AppCompatActivity {
 
         currentPlayerTextView = findViewById(R.id.currentPlayerTextView);
         questionTextView = findViewById(R.id.mcqQuestionTextView);
-        player1Score = findViewById(R.id.player1Score);
-        player2Score = findViewById(R.id.player2Score);
-        player3Score = findViewById(R.id.player3Score);
+        player1Score = findViewById(R.id.p1Score);
+        player2Score = findViewById(R.id.p2Score);
+        player3Score = findViewById(R.id.p3Score);
+        player4Score = findViewById(R.id.p4Score);
         mcqRadioGroup = findViewById(R.id.mcqAnswerRadioGroup);
         radioButtonA = findViewById(R.id.mcqAnswerAButton);
         radioButtonB = findViewById(R.id.mcqAnswerBButton);
@@ -72,6 +74,38 @@ public class McqActivity extends AppCompatActivity {
         }
         if (players.size() > 2) {
             player3Score.setVisibility(View.VISIBLE);
+        }
+
+        player1Score.setText(players.get(0).getPlayerName() + ": 0");
+        player1Score.setBackgroundColor(players.get(0).getPlayerColor());
+
+        switch (players.size()) {
+            case 1:
+                player2Score.setVisibility(View.GONE);
+                player3Score.setVisibility(View.GONE);
+                player4Score.setVisibility(View.GONE);
+                break;
+            case 2:
+                player2Score.setText(players.get(1).getPlayerName() + ": 0");
+                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
+                player3Score.setVisibility(View.GONE);
+                player4Score.setVisibility(View.GONE);
+                break;
+            case 3:
+                player2Score.setText(players.get(1).getPlayerName() + ": 0");
+                player3Score.setText(players.get(2).getPlayerName() + ": 0");
+                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
+                player3Score.setBackgroundColor(players.get(2).getPlayerColor());
+                player4Score.setVisibility(View.GONE);
+                break;
+            case 4:
+                player2Score.setText(players.get(1).getPlayerName() + ": 0");
+                player3Score.setText(players.get(2).getPlayerName() + ": 0");
+                player4Score.setText(players.get(3).getPlayerName() + ": 0");
+                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
+                player3Score.setBackgroundColor(players.get(2).getPlayerColor());
+                player4Score.setBackgroundColor(players.get(3).getPlayerColor());
+                break;
         }
     }
 
@@ -99,21 +133,27 @@ public class McqActivity extends AppCompatActivity {
     private void setCurrentPlayer() {
         Player player = gameModel.getGuessingPlayer();
         currentPlayerTextView.setText(getString(R.string.currrent_player_turn, player.getPlayerName()));
+        findViewById(R.id.currPlayerContainer).setBackgroundColor(player.getPlayerColor());
     }
 
     private void setPlayerScores() {
         List<Player> players = gameModel.getPlayers();
         Player p1 = players.get(0);
-        player1Score.setText(getString(R.string.player_score, p1.getPlayerName(), p1.getPlayerScore()));
+        player1Score.setText(p1.getPlayerName() + ": " + p1.getPlayerScore());
 
         if (players.size() > 1) {
             Player p2 = players.get(1);
-            player2Score.setText(getString(R.string.player_score, p2.getPlayerName(), p2.getPlayerScore()));
+            player2Score.setText(p2.getPlayerName() + ": " + p2.getPlayerScore());
         }
 
         if (players.size() > 2) {
             Player p3 = players.get(2);
-            player3Score.setText(getString(R.string.player_score, p3.getPlayerName(), p3.getPlayerScore()));
+            player3Score.setText(p3.getPlayerName() + ": " + p3.getPlayerScore());
+        }
+
+        if (players.size() > 3) {
+            Player p4 = players.get(3);
+            player4Score.setText(p4.getPlayerName() + ": " + p4.getPlayerScore());
         }
     }
 

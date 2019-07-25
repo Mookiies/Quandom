@@ -2,6 +2,9 @@ package com.malcolmscruggs.quandom;
 
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,11 +37,17 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     int numPoints;
     ArrayList<Player> players;
     Button playButton;
+    ArrayList<Integer> colors = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_selection);
+
+        colors.add(Color.YELLOW);
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.BLUE);
 
         // set default values for # of players and points
         numPlayers = 2;
@@ -88,9 +97,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // create Players
         players = new ArrayList<>(3);
-        players.add(new Player(getString(R.string.player1_placeholder), R.id.p1AvatarImg));
-        players.add(new Player(getString(R.string.player2_placeholder), R.id.p2AvatarImg));
-        players.add(new Player(getString(R.string.player3_placeholder), R.id.p3AvatarImg));
+        players.add(new Player(getString(R.string.player1_placeholder), Color.RED));
+        players.add(new Player(getString(R.string.player2_placeholder), Color.GREEN));
+        players.add(new Player(getString(R.string.player3_placeholder), Color.BLUE));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
@@ -101,12 +110,21 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         setupPlayerEditText(1, playerNameChange2);
         setupPlayerEditText(2, playerNameChange3);
 
+        // get player color editors and set up listeners
+        final Button playerColor1 = findViewById(R.id.p1Color);
+        final Button playerColor2 = findViewById(R.id.p2Color);
+        final Button playerColor3 = findViewById(R.id.p3Color);
+
+        setupPlayerColor(0, playerColor1);
+        setupPlayerColor(1, playerColor2);
+        setupPlayerColor(2, playerColor3);
+
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                populateQuestions(10, 9, 1, true);
+                populateQuestions(numPoints, 9, 1, true);
             }
         });
     }
@@ -160,6 +178,37 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) { }
+        });
+    }
+
+    private void setupPlayerColor(final int playerIdx, final Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int background = ((ColorDrawable)button.getBackground()).getColor();
+                int index = colors.indexOf(background) + 1;
+                Log.d("index0", Integer.toString(index));
+                if (index >= colors.size()) {
+                    index = 0;
+                }
+                Log.d("index1", Integer.toString(index));
+                for (int i = 0; i < numPlayers; i++) {
+                    if (index < colors.size()) {
+                        if (players.get(i).getPlayerColor() == colors.get(index)) {
+                            index++;
+                            Log.d("index2", Integer.toString(index));
+                        }
+                    }
+                }
+                Log.d("index3", Integer.toString(index));
+                if (index >= colors.size()) {
+                    index = 0;
+                }
+                Log.d("index4", Integer.toString(index));
+                int newBackground = colors.get(index);
+                players.get(playerIdx).setPlayerColor(newBackground);
+                button.setBackgroundColor(newBackground);
+            }
         });
     }
 
