@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="redCustom">#ff0000</color>
-    <color name="greenCustom">#00ff00</color>
-    <color name="blueCustom">#0000ff</color>
+    <color name="primaryColor">#9C27B0</color>
+    <color name="colorPrimary">#9C27B0</color>
+    <color name="primaryLightColor">#ae52d4</color>
+    <color name="primaryDarkColor">#7B1FA2</color>
+    <color name="secondaryColor">#1976d2</color>
+    <color name="secondaryLightColor">#63a4ff</color>
+    <color name="secondaryDarkColor">#004ba0</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+    <color name="darkTextColor">#212121</color>
+    <color name="colorAccent">#448AFF</color>
+
+    <color name="backgroundColor">#212121</color>
+    <color name="colorPrimaryDark">#181616</color> <!-- Sets notification bar color-->
+
+    <color name="blueCustom">#ffffff</color>
+    <color name="materialRed">#d32f2f</color>
+    <color name="materialPink">#ad1457</color>
+    <color name="materialPurple">#6a1b9a</color>
+    <color name="materialIndigo">#283593</color>
+    <color name="materialCyan">#006064</color>
+    <color name="materialGreen">#006064</color>
+    <color name="materialAmber">#ff6f00</color>
+    <color name="materialGrey">#263238</color>
 </resources>
