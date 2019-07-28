@@ -12,6 +12,8 @@ import java.util.Random;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;
+
 final public class GameModel implements Serializable {
 
     private static final long serialVersionUID = 1111111112L;
@@ -42,9 +44,9 @@ final public class GameModel implements Serializable {
             JSONArray ques = json.getJSONArray("results");
             for (int i = 0; i < ques.length(); i++) {
                 JSONObject question = ques.getJSONObject(i);
-                String category = question.getString("category");
-                String questionText = question.getString("question");
-                String correctAns = question.getString("correct_answer");
+                String category = unescapeHtml4(question.getString("category"));
+                String questionText = unescapeHtml4(question.getString("question"));
+                String correctAns = unescapeHtml4(question.getString("correct_answer"));
                 JSONArray ans = question.getJSONArray("incorrect_answers");
                 Random rand = new Random();
                 int correctIdx = rand.nextInt(4);
