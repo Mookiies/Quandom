@@ -99,9 +99,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // create Players
         players = new ArrayList<>(3);
-        players.add(new Player(getString(R.string.player1_placeholder), R.color.materialRed));
-        players.add(new Player(getString(R.string.player2_placeholder), R.color.materialPink));
-        players.add(new Player(getString(R.string.player3_placeholder), R.color.materialPurple));
+        players.add(new Player(getString(R.string.player1_placeholder), colors.get(0)));
+        players.add(new Player(getString(R.string.player2_placeholder), colors.get(1)));
+        players.add(new Player(getString(R.string.player3_placeholder), colors.get(2)));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
@@ -117,9 +117,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         final Button playerColor2 = findViewById(R.id.p2Color);
         final Button playerColor3 = findViewById(R.id.p3Color);
 
-        setupPlayerColor(0, playerColor1);
-        setupPlayerColor(1, playerColor2);
-        setupPlayerColor(2, playerColor3);
+        setupPlayerColor(0, playerColor1, colors.get(0));
+        setupPlayerColor(1, playerColor2, colors.get(1));
+        setupPlayerColor(2, playerColor3, colors.get(2));
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
@@ -183,7 +183,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
     }
 
-    private void setupPlayerColor(final int playerIdx, final Button button) {
+    private void setupPlayerColor(final int playerIdx, final Button button, int initialColor) {
+        button.setBackgroundColor(getResources().getColor(initialColor));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,7 +210,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 Log.d("index4", Integer.toString(index));
                 int newBackground = colors.get(index);
                 players.get(playerIdx).setPlayerColor(newBackground);
-                button.setBackgroundColor(newBackground);
+                button.setBackgroundColor(getResources().getColor(newBackground));
             }
         });
     }

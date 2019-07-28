@@ -90,7 +90,7 @@ public class McqActivity extends AppCompatActivity {
         }
 
         player1Score.setText(players.get(0).getPlayerName() + ": 0");
-        player1Score.setBackgroundColor(players.get(0).getPlayerColor());
+        player1Score.setBackgroundColor(getResources().getColor(players.get(0).getPlayerColor()));
 
         switch (players.size()) {
             case 1:
@@ -100,24 +100,24 @@ public class McqActivity extends AppCompatActivity {
                 break;
             case 2:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
                 player3Score.setVisibility(View.GONE);
                 player4Score.setVisibility(View.GONE);
                 break;
             case 3:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
                 player3Score.setText(players.get(2).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
-                player3Score.setBackgroundColor(players.get(2).getPlayerColor());
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
+                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor()));
                 player4Score.setVisibility(View.GONE);
                 break;
             case 4:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
                 player3Score.setText(players.get(2).getPlayerName() + ": 0");
                 player4Score.setText(players.get(3).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(players.get(1).getPlayerColor());
-                player3Score.setBackgroundColor(players.get(2).getPlayerColor());
-                player4Score.setBackgroundColor(players.get(3).getPlayerColor());
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
+                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor()));
+                player4Score.setBackgroundColor(getResources().getColor(players.get(3).getPlayerColor()));
                 break;
         }
     }
@@ -146,7 +146,7 @@ public class McqActivity extends AppCompatActivity {
     private void setCurrentPlayer() {
         Player player = gameModel.getGuessingPlayer();
         currentPlayerTextView.setText(getString(R.string.currrent_player_turn, player.getPlayerName()));
-        findViewById(R.id.currPlayerContainer).setBackgroundColor(player.getPlayerColor());
+        findViewById(R.id.currPlayerContainer).setBackgroundColor(getResources().getColor(player.getPlayerColor()));
     }
 
     private void setPlayerScores() {

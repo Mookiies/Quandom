@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_vertical_margin"
+
             android:orientation="vertical">
 
             <RelativeLayout
@@ -134,7 +134,7 @@
 
                 <Button
                     android:id="@+id/p2Color"
-                    android:background="@color/materialPink"
+                    android:background="@color/materialRed"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
@@ -173,7 +173,7 @@
 
                 <Button
                     android:id="@+id/p3Color"
-                    android:background="@color/materialPurple"
+                    android:background="@color/materialRed"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
