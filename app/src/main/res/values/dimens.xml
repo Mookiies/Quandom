@@ -2,8 +2,11 @@
 <resources>
     <dimen name="callout_text_size">36sp</dimen>
     <dimen name="big_button_text_size">20sp</dimen>
-    <dimen name="default_horizontal_margin">16dp</dimen>
+    <dimen name="default_horizontal_margin">20dp</dimen>
+    <dimen name="default_horizontal_padding">12dp</dimen>
+    <dimen name="default_vertical_padding">12dp</dimen>
     <dimen name="default_vertical_margin">24dp</dimen>
     <dimen name="player_selection_outer_margin">40dp</dimen>
     <dimen name="player_selection_text_size">20sp</dimen>
+    <dimen name="question_text_size">24sp</dimen>
 </resources>

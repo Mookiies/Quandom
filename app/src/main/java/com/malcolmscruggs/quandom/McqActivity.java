@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +31,10 @@ public class McqActivity extends AppCompatActivity {
     TextView player2Score;
     TextView player3Score;
     TextView player4Score;
-    RadioGroup mcqRadioGroup;
-    RadioButton radioButtonA;
-    RadioButton radioButtonB;
-    RadioButton radioButtonC;
-    RadioButton radioButtonD;
-    Button guessButton;
+    Button buttonA;
+    Button buttonB;
+    Button buttonC;
+    Button buttonD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +50,34 @@ public class McqActivity extends AppCompatActivity {
         player2Score = findViewById(R.id.p2Score);
         player3Score = findViewById(R.id.p3Score);
         player4Score = findViewById(R.id.p4Score);
-        mcqRadioGroup = findViewById(R.id.mcqAnswerRadioGroup);
-        radioButtonA = findViewById(R.id.mcqAnswerAButton);
-        radioButtonB = findViewById(R.id.mcqAnswerBButton);
-        radioButtonC = findViewById(R.id.mcqAnswerCButton);
-        radioButtonD = findViewById(R.id.mcqAnswerDButton);
-        guessButton = findViewById(R.id.mcqGuessButton);
+        buttonA = findViewById(R.id.mcqAnswerAButton);
+        buttonB = findViewById(R.id.mcqAnswerBButton);
+        buttonC = findViewById(R.id.mcqAnswerCButton);
+        buttonD = findViewById(R.id.mcqAnswerDButton);
 
         setCurrentQuestion();
-        guessButton.setOnClickListener(new View.OnClickListener() {
+        buttonA.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onGuess();
+            public void onClick(View view) {
+                onGuess(0);
+            }
+        });
+        buttonB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onGuess(1);
+            }
+        });
+        buttonC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onGuess(2);
+            }
+        });
+        buttonD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onGuess(3);
             }
         });
 
@@ -122,10 +134,10 @@ public class McqActivity extends AppCompatActivity {
         Question question = gameModel.getCurrentQuestion();
         ArrayList<String> answers = question.getAnswers();
         questionTextView.setText(question.getQuestionText());
-        radioButtonA.setText(answers.get(0));
-        radioButtonB.setText(answers.get(1));
-        radioButtonC.setText(answers.get(2));
-        radioButtonD.setText(answers.get(3));
+        buttonA.setText(answers.get(0));
+        buttonB.setText(answers.get(1));
+        buttonC.setText(answers.get(2));
+        buttonD.setText(answers.get(3));
 
         setCurrentPlayer();
         setPlayerScores();
@@ -158,25 +170,7 @@ public class McqActivity extends AppCompatActivity {
         }
     }
 
-    private void onGuess() {
-        int guess;
-        switch (mcqRadioGroup.getCheckedRadioButtonId()) {
-            case R.id.mcqAnswerAButton:
-                guess = 0;
-                break;
-            case R.id.mcqAnswerBButton:
-                guess = 1;
-                break;
-            case R.id.mcqAnswerCButton:
-                guess = 2;
-                break;
-            case R.id.mcqAnswerDButton:
-                guess = 3;
-                break;
-            default:
-                return;
-        }
-
+    private void onGuess(int guess) {
         boolean haveAllPlayersGuessed = gameModel.guessQuestion(guess);
 
         Log.d("ON GUESS", haveAllPlayersGuessed + "");
