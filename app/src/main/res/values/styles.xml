@@ -10,6 +10,11 @@
         <item name="android:textViewStyle">@style/TextTheme</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+    </style>
+
     <style name="ButtonTheme" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/secondaryColor</item>
         <item name="android:textColor">@color/secondaryTextColor</item>

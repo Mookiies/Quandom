@@ -11,11 +11,11 @@
     <color name="secondaryTextColor">#ffffff</color>
     <color name="darkTextColor">#212121</color>
     <color name="colorAccent">#448AFF</color>
+    <color name="logoColor">#FCE4EC</color>
 
     <color name="backgroundColor">#212121</color>
     <color name="colorPrimaryDark">#181616</color> <!-- Sets notification bar color-->
 
-    <color name="blueCustom">#ffffff</color>
     <color name="materialRed">#d32f2f</color>
     <color name="materialPink">#ad1457</color>
     <color name="materialPurple">#6a1b9a</color>
