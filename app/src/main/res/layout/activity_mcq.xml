@@ -19,7 +19,7 @@
             android:id="@+id/p1Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/redCustom"
+            android:background="@color/materialRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>
@@ -27,7 +27,7 @@
             android:id="@+id/p2Score"
             android:text=""
             android:textSize="20dp"
-            android:background="@color/greenCustom"
+            android:background="@color/materialPink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"/>

@@ -1,7 +1,6 @@
 package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,10 +42,14 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_selection);
 
-        colors.add(Color.YELLOW);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.BLUE);
+        colors.add(R.color.materialRed);
+        colors.add(R.color.materialPink);
+        colors.add(R.color.materialPurple);
+        colors.add(R.color.materialIndigo);
+        colors.add(R.color.materialCyan);
+        colors.add(R.color.materialGreen);
+        colors.add(R.color.materialAmber);
+        colors.add(R.color.materialGrey);
 
         // set default values for # of players and points
         numPlayers = 2;
@@ -96,9 +99,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // create Players
         players = new ArrayList<>(3);
-        players.add(new Player(getString(R.string.player1_placeholder), Color.RED));
-        players.add(new Player(getString(R.string.player2_placeholder), Color.GREEN));
-        players.add(new Player(getString(R.string.player3_placeholder), Color.BLUE));
+        players.add(new Player(getString(R.string.player1_placeholder), R.color.materialRed));
+        players.add(new Player(getString(R.string.player2_placeholder), R.color.materialPink));
+        players.add(new Player(getString(R.string.player3_placeholder), R.color.materialPurple));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
