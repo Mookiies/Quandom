@@ -1,11 +1,56 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/ButtonTheme</item>
+        <item name="android:textViewStyle">@style/TextTheme</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+    </style>
+
+    <style name="ButtonTheme" parent="Widget.AppCompat.Button">
+        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:paddingEnd">@dimen/default_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/default_horizontal_padding</item>
+    </style>
+
+    <style name="TextTheme">
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="MCQButton" parent="ButtonTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Placeholder answer. The real answer will have to replace this long dummy text.</item>
+        <item name="android:paddingTop">@dimen/default_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/default_vertical_padding</item>
+        <item name="android:paddingEnd">@dimen/default_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/default_horizontal_padding</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="ScoreBoardText" parent="TextTheme">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">middle</item>
+
+        <item name="android:text">Player Placeholder That is too long</item>
+        <item name="android:background">@color/materialAmber</item>
     </style>
 
 </resources>

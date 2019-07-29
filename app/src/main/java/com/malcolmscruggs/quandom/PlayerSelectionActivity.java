@@ -1,11 +1,7 @@
 package com.malcolmscruggs.quandom;
 
-import android.app.DownloadManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import utils.Player;
 import utils.GameModel;
+import utils.Player;
 
 import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
 
@@ -44,10 +42,14 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_selection);
 
-        colors.add(Color.YELLOW);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.BLUE);
+        colors.add(R.color.materialRed);
+        colors.add(R.color.materialPink);
+        colors.add(R.color.materialPurple);
+        colors.add(R.color.materialIndigo);
+        colors.add(R.color.materialCyan);
+        colors.add(R.color.materialGreen);
+        colors.add(R.color.materialAmber);
+        colors.add(R.color.materialGrey);
 
         // set default values for # of players and points
         numPlayers = 2;
@@ -97,9 +99,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // create Players
         players = new ArrayList<>(3);
-        players.add(new Player(getString(R.string.player1_placeholder), Color.RED));
-        players.add(new Player(getString(R.string.player2_placeholder), Color.GREEN));
-        players.add(new Player(getString(R.string.player3_placeholder), Color.BLUE));
+        players.add(new Player(getString(R.string.player1_placeholder), colors.get(0)));
+        players.add(new Player(getString(R.string.player2_placeholder), colors.get(1)));
+        players.add(new Player(getString(R.string.player3_placeholder), colors.get(2)));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
@@ -115,9 +117,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         final Button playerColor2 = findViewById(R.id.p2Color);
         final Button playerColor3 = findViewById(R.id.p3Color);
 
-        setupPlayerColor(0, playerColor1);
-        setupPlayerColor(1, playerColor2);
-        setupPlayerColor(2, playerColor3);
+        setupPlayerColor(0, playerColor1, colors.get(0));
+        setupPlayerColor(1, playerColor2, colors.get(1));
+        setupPlayerColor(2, playerColor3, colors.get(2));
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
@@ -181,7 +183,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
     }
 
-    private void setupPlayerColor(final int playerIdx, final Button button) {
+    private void setupPlayerColor(final int playerIdx, final Button button, int initialColor) {
+        button.setBackgroundColor(getResources().getColor(initialColor));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,7 +210,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 Log.d("index4", Integer.toString(index));
                 int newBackground = colors.get(index);
                 players.get(playerIdx).setPlayerColor(newBackground);
-                button.setBackgroundColor(newBackground);
+                button.setBackgroundColor(getResources().getColor(newBackground));
             }
         });
     }

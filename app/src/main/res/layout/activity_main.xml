@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2A3765"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
     tools:context=".MainActivity">
 
-
-        <Button
-        android:id="@+id/customPlayButton"
-        android:layout_width="229dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="91dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="91dp"
-        android:layout_marginBottom="225dp"
-        android:background="#0C60A0"
-        android:text="@string/custom_play_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#64CFCE"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quickPlayButton" />
-
-        <TextView
+    <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="134dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="77dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
+        android:layout_marginBottom="@dimen/default_vertical_margin"
+        android:fontFamily="@font/press_start_2p"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#03A9F4"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/logoColor"
         app:layout_constraintBottom_toTopOf="@+id/quickPlayButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp">
+
         <Button
             android:id="@+id/quickPlayButton"
-            android:layout_width="229dp"
-            android:layout_height="71dp"
-            android:layout_marginStart="91dp"
-            android:layout_marginTop="77dp"
-            android:layout_marginEnd="91dp"
-            android:layout_marginBottom="32dp"
-            android:background="#0C60A0"
-            android:text="@string/quick_play_text"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#64CFCE"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/customPlayButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginTop="@dimen/default_vertical_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:layout_marginBottom="@dimen/default_vertical_margin"
 
-</android.support.constraint.ConstraintLayout>
+            android:text="@string/quick_play_text"
+            android:textStyle="bold"
+            android:textSize="@dimen/big_button_text_size"/>
+
+        <Button
+            android:id="@+id/customPlayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:layout_marginBottom="@dimen/default_vertical_margin"
+
+            android:text="@string/custom_play_text"
+            android:textSize="@dimen/big_button_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
