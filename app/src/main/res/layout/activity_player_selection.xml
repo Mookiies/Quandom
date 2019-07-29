@@ -96,12 +96,11 @@
 
                 <Button
                     android:id="@+id/p1Color"
-                    android:background="@color/materialRed"
+                    android:backgroundTint="@color/materialRed"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginStart="40dp"
                     android:layout_alignParentRight="true"/>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -134,7 +133,7 @@
 
                 <Button
                     android:id="@+id/p2Color"
-                    android:background="@color/materialRed"
+                    android:backgroundTint="@color/materialRed"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
@@ -173,7 +172,7 @@
 
                 <Button
                     android:id="@+id/p3Color"
-                    android:background="@color/materialRed"
+                    android:backgroundTint="@color/materialRed"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"

@@ -1,7 +1,6 @@
 package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +11,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,23 +32,23 @@ import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
 
 public class PlayerSelectionActivity extends AppCompatActivity {
 
-    int numPlayers;
-    int numPoints;
-    ArrayList<Player> players;
-    Button playButton;
-    ArrayList<Integer> colors = new ArrayList<>();
+    private int numPlayers;
+    private int numPoints;
+    private ArrayList<Player> players;
+    private Button playButton;
+    private ArrayList<Integer> colors = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_selection);
 
-        colors.add(R.color.materialRed);
-        colors.add(R.color.materialPink);
-        colors.add(R.color.materialPurple);
         colors.add(R.color.materialIndigo);
         colors.add(R.color.materialCyan);
         colors.add(R.color.materialGreen);
+        colors.add(R.color.materialRed);
+        colors.add(R.color.materialPink);
+        colors.add(R.color.materialPurple);
         colors.add(R.color.materialAmber);
         colors.add(R.color.materialGrey);
 
@@ -99,9 +100,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // create Players
         players = new ArrayList<>(3);
-        players.add(new Player(getString(R.string.player1_placeholder), colors.get(0)));
-        players.add(new Player(getString(R.string.player2_placeholder), colors.get(1)));
-        players.add(new Player(getString(R.string.player3_placeholder), colors.get(2)));
+        players.add(new Player(getString(R.string.player1_placeholder), colors.remove(0)));
+        players.add(new Player(getString(R.string.player2_placeholder), colors.remove(0)));
+        players.add(new Player(getString(R.string.player3_placeholder), colors.remove(0)));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
@@ -117,9 +118,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         final Button playerColor2 = findViewById(R.id.p2Color);
         final Button playerColor3 = findViewById(R.id.p3Color);
 
-        setupPlayerColor(0, playerColor1, colors.get(0));
-        setupPlayerColor(1, playerColor2, colors.get(1));
-        setupPlayerColor(2, playerColor3, colors.get(2));
+        setupPlayerColor(0, playerColor1);
+        setupPlayerColor(1, playerColor2);
+        setupPlayerColor(2, playerColor3);
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
@@ -183,36 +184,22 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
     }
 
-    private void setupPlayerColor(final int playerIdx, final Button button, int initialColor) {
-        button.setBackgroundColor(getResources().getColor(initialColor));
+    private void setupPlayerColor(final int playerIdx, final Button button) {
+        setPlayerColor(players.get(playerIdx), button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int background = ((ColorDrawable)button.getBackground()).getColor();
-                int index = colors.indexOf(background) + 1;
-                Log.d("index0", Integer.toString(index));
-                if (index >= colors.size()) {
-                    index = 0;
-                }
-                Log.d("index1", Integer.toString(index));
-                for (int i = 0; i < numPlayers; i++) {
-                    if (index < colors.size()) {
-                        if (players.get(i).getPlayerColor() == colors.get(index)) {
-                            index++;
-                            Log.d("index2", Integer.toString(index));
-                        }
-                    }
-                }
-                Log.d("index3", Integer.toString(index));
-                if (index >= colors.size()) {
-                    index = 0;
-                }
-                Log.d("index4", Integer.toString(index));
-                int newBackground = colors.get(index);
-                players.get(playerIdx).setPlayerColor(newBackground);
-                button.setBackgroundColor(getResources().getColor(newBackground));
+                setPlayerColor(players.get(playerIdx), button);
             }
         });
+    }
+
+    private void setPlayerColor(Player player, Button button) {
+        int oldColor = player.getPlayerColor();
+        colors.add(oldColor);
+        int newColor = colors.remove(0);
+        player.setPlayerColor(newColor);
+        ViewCompat.setBackgroundTintList(button, ContextCompat.getColorStateList(this, newColor));
     }
 
     private void startIntent(String response) {
