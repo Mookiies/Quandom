@@ -19,7 +19,17 @@ public class MainActivity extends AppCompatActivity {
         quickPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent quickPlayItent = new Intent(getApplicationContext(), PlayerSelectionActivity.class);
+                quickPlayItent.putExtra("Type", "quick");
                 startActivity(quickPlayItent);
+            }
+        });
+
+        Button customPlay = findViewById(R.id.customPlayButton);
+        customPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent customPlayIntent = new Intent(getApplicationContext(), CustomPlayActivity.class);
+                startActivity(customPlayIntent);
             }
         });
     }

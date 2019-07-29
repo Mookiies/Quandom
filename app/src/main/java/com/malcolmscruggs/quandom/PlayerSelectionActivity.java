@@ -126,23 +126,19 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                populateQuestions(numPoints, 9, 1, true);
+                Bundle extras = getIntent().getExtras();
+                if (extras.getString("Type") == "quick") {
+                    populateQuestions(numPoints, 9, "easy", true);
+                } else {
+                    populateQuestions(numPoints, extras.getInt("Category"),
+                            extras.getString("Difficulty"), true);
+                }
             }
         });
     }
 
-    private void populateQuestions(int numQuestions, int category, int difficulty, boolean mcq) {
+    private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
         RequestQueue queue = Volley.newRequestQueue(this);
-
-        //Categories
-        List<String> cats = Arrays.asList("general-knowledge");
-        ArrayList<String> categories = new ArrayList<>();
-        categories.addAll(cats);
-
-        //Difficulty
-        List<String> dif = Arrays.asList("easy", "medium", "hard");
-        ArrayList<String> difficulties = new ArrayList<>();
-        difficulties.addAll(dif);
 
         //Question Type
         String mcqOrTF;
@@ -151,7 +147,16 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         } else {
             mcqOrTF = "boolean";
         }
-        String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
+
+        String url;
+
+        if (category == 8) {
+            url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
+        }
+
+        url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
+
+        Log.d("URL", url);
 
         final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
