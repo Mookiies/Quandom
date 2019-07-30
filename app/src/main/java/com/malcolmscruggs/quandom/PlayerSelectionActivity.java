@@ -40,6 +40,24 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
+    static final String cachedQuestions = "{\"response_code\":0,\"results\":[{\"category\":\"General" +
+            " Knowledge\",\"type\":\"multiple\",\"difficulty\":\"medium\",\"question\":\"In a " +
+            "standard set of playing cards, which is the only king without a moustache?\"," +
+            "\"correct_answer\":\"Hearts\",\"incorrect_answers\":[\"Spades\",\"Diamonds\",\"" +
+            "Clubs\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\",\"difficulty\":" +
+            "\"medium\",\"question\":\"What is the defining characteristic of someone who is " +
+            "described as hirsute?\",\"correct_answer\":\"Hairy\",\"incorrect_answers\":[\"Rude" +
+            "\",\"Funny\",\"Tall\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\"," +
+            "\"difficulty\":\"medium\",\"question\":\"When was Nintendo founded?\",\"correct_answer" +
+            "\":\"September 23rd, 1889\",\"incorrect_answers\":[\"October 19th, 1891\",\"March 4th" +
+            ", 1887\",\"December 27th, 1894\"]},{\"category\":\"General Knowledge\",\"type\":" +
+            "\"multiple\",\"difficulty\":\"medium\",\"question\":\"Amsterdam Centraal station is" +
+            " twinned with what station?\",\"correct_answer\":\"London Liverpool Street\",\"" +
+            "incorrect_answers\":[\"Frankfurt (Main) Hauptbahnhof\",\"Paris Gare du Nord\",\"" +
+            "Brussels Midi\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\",\"" +
+            "difficulty\":\"medium\",\"question\":\"What was the original name of the search " +
+            "engine &quot;Google&quot;?\",\"correct_answer\":\"BackRub\",\"incorrect_answers" +
+            "\":[\"CatMassage\",\"SearchPro\",\"Netscape Navigator\"]}]}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,40 +169,44 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     }
 
     private void populateQuestions(int numQuestions, int category, int difficulty, boolean mcq) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        //Categories
-        List<String> cats = Arrays.asList("general-knowledge");
-        ArrayList<String> categories = new ArrayList<>();
-        categories.addAll(cats);
-
-        //Difficulty
-        List<String> dif = Arrays.asList("easy", "medium", "hard");
-        ArrayList<String> difficulties = new ArrayList<>();
-        difficulties.addAll(dif);
-
-        //Question Type
-        String mcqOrTF;
-        if (mcq) {
-            mcqOrTF = "multiple";
+        if (useCache) {
+            startIntent(cachedQuestions);
         } else {
-            mcqOrTF = "boolean";
-        }
-        String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
+            RequestQueue queue = Volley.newRequestQueue(this);
 
-        final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("APIResp", response);
-                startIntent(response);
+            //Categories
+            List<String> cats = Arrays.asList("general-knowledge");
+            ArrayList<String> categories = new ArrayList<>();
+            categories.addAll(cats);
+
+            //Difficulty
+            List<String> dif = Arrays.asList("easy", "medium", "hard");
+            ArrayList<String> difficulties = new ArrayList<>();
+            difficulties.addAll(dif);
+
+            //Question Type
+            String mcqOrTF;
+            if (mcq) {
+                mcqOrTF = "multiple";
+            } else {
+                mcqOrTF = "boolean";
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("APIResp", error.getMessage());
-            }
-        });
-        queue.add(stringRquest);
+            String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
+
+            final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("APIResp", response);
+                    startIntent(response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("APIResp", error.getMessage());
+                }
+            });
+            queue.add(stringRquest);
+        }
     }
 
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
