@@ -64,10 +64,12 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         numPickerPlayers.setMinValue(1);
         numPickerPlayers.setMaxValue(4);
         numPickerPlayers.setValue(2);
+        numPickerPlayers.setWrapSelectorWheel(false);
 
         numPickerPoints.setMinValue(1);
         numPickerPoints.setMaxValue(10);
         numPickerPoints.setValue(5);
+        numPickerPoints.setWrapSelectorWheel(false);
 
         numPickerPlayers.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
