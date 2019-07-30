@@ -68,6 +68,7 @@
                     <RadioButton
                         android:id="@+id/entMusicalsTheatres"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/entertainment_musicals_theatres" />
 
                     <RadioButton
@@ -103,6 +104,7 @@
                     <RadioButton
                         android:id="@+id/mythology"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/mythology" />
 
                     <RadioButton
@@ -128,11 +130,13 @@
                     <RadioButton
                         android:id="@+id/art"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/art" />
 
                     <RadioButton
                         android:id="@+id/celebrities"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/celebrities" />
 
                     <RadioButton
@@ -148,11 +152,13 @@
                     <RadioButton
                         android:id="@+id/entComics"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/entertainment_comics" />
 
                     <RadioButton
                         android:id="@+id/scienceGadgets"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/science_gadgets" />
 
                     <RadioButton
@@ -163,6 +169,7 @@
                     <RadioButton
                         android:id="@+id/entCartoonsAnimations"
                         style="@style/CustomCategoryButton"
+                        android:visibility="gone"
                         android:text="@string/entertainment_cartoons_animations" />
 
                 </RadioGroup>
