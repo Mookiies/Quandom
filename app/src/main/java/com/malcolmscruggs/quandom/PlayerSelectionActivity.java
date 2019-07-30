@@ -46,6 +46,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         colors.add(R.color.materialIndigo);
         colors.add(R.color.materialCyan);
         colors.add(R.color.materialGreen);
+        colors.add(R.color.materialGreenYellow);
         colors.add(R.color.materialRed);
         colors.add(R.color.materialPink);
         colors.add(R.color.materialPurple);
@@ -61,7 +62,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         NumberPicker numPickerPoints = findViewById(R.id.pointsPicker);
 
         numPickerPlayers.setMinValue(1);
-        numPickerPlayers.setMaxValue(3);
+        numPickerPlayers.setMaxValue(4);
         numPickerPlayers.setValue(2);
 
         numPickerPoints.setMinValue(1);
@@ -85,6 +86,10 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
                         break;
+                    case 4:
+                        findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p4Layout).setVisibility(View.VISIBLE);
                     default:
                         break;
                 }
@@ -99,28 +104,33 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
 
         // create Players
-        players = new ArrayList<>(3);
+        players = new ArrayList<>(4);
         players.add(new Player(getString(R.string.player1_placeholder), colors.remove(0)));
         players.add(new Player(getString(R.string.player2_placeholder), colors.remove(0)));
         players.add(new Player(getString(R.string.player3_placeholder), colors.remove(0)));
+        players.add(new Player(getString(R.string.player4_placeholder), colors.remove(0)));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
         final EditText playerNameChange2 = findViewById(R.id.p2NameText);
         final EditText playerNameChange3 = findViewById(R.id.p3NameText);
+        final EditText playerNameChange4 = findViewById(R.id.p4NameText);
 
         setupPlayerEditText(0, playerNameChange1);
         setupPlayerEditText(1, playerNameChange2);
         setupPlayerEditText(2, playerNameChange3);
+        setupPlayerEditText(3, playerNameChange4);
 
         // get player color editors and set up listeners
         final Button playerColor1 = findViewById(R.id.p1Color);
         final Button playerColor2 = findViewById(R.id.p2Color);
         final Button playerColor3 = findViewById(R.id.p3Color);
+        final Button playerColor4 = findViewById(R.id.p4Color);
 
         setupPlayerColor(0, playerColor1);
         setupPlayerColor(1, playerColor2);
         setupPlayerColor(2, playerColor3);
+        setupPlayerColor(3, playerColor4);
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
