@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -28,8 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import utils.GameModel;
 import utils.Player;
@@ -44,7 +43,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
-    private String cachedQuestions = "bogus";
+    private String cachedQuestions;
 
 
     @Override
@@ -66,9 +65,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         numPoints = 5;
 
         // Set cached questions from file
-        Log.d("CacheTEXT", "before: " + cachedQuestions);
         cachedQuestions = readFromTextFile(R.raw.questions);
-        Log.d("CacheTEXT", "after: " + cachedQuestions);
 
 
         //Set default cache values
@@ -147,7 +144,14 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                populateQuestions(numPoints, 9, 1, true);
+                Bundle extras = getIntent().getExtras();
+                String type = extras.getString("Type");
+                if (type != null && type.equals("quick")) {
+                    populateQuestions(numPoints, 9, "easy", true);
+                } else {
+                    populateQuestions(numPoints, extras.getInt("Category"),
+                            extras.getString("Difficulty"), true);
+                }
             }
         });
 
@@ -157,26 +161,15 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 useCache = b;
                 compoundButton.setChecked(useCache);
-                Log.d("SwitchCACHE", String.valueOf(useCache));
             }
         });
     }
 
-    private void populateQuestions(int numQuestions, int category, int difficulty, boolean mcq) {
+    private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
         if (useCache) {
             startIntent(cachedQuestions);
         } else {
             RequestQueue queue = Volley.newRequestQueue(this);
-
-            //Categories
-            List<String> cats = Arrays.asList("general-knowledge");
-            ArrayList<String> categories = new ArrayList<>();
-            categories.addAll(cats);
-
-            //Difficulty
-            List<String> dif = Arrays.asList("easy", "medium", "hard");
-            ArrayList<String> difficulties = new ArrayList<>();
-            difficulties.addAll(dif);
 
             //Question Type
             String mcqOrTF;
@@ -185,21 +178,34 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             } else {
                 mcqOrTF = "boolean";
             }
-            String url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulties.get(difficulty), mcqOrTF);
 
-            final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            String url;
+
+            if (category == 8) {
+                url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
+            }
+
+            url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
+
+            Log.d("URL", url);
+
+            final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.d("APIResp", response);
+                    //TODO handle when response doesn't contain necessary info
                     startIntent(response);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("APIResp", error.getMessage());
+                    String errorMessage = error.getMessage();
+                    Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
+                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+
                 }
             });
-            queue.add(stringRquest);
+            queue.add(stringRequest);
         }
     }
 
