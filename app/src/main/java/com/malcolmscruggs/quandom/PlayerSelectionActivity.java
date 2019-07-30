@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -161,12 +162,16 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.d("APIResp", response);
+                //TODO handle when response doesn't contain necessary info
                 startIntent(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("APIResp", error.getMessage());
+                String errorMessage = error.getMessage();
+                Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
+                Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+
             }
         });
         queue.add(stringRquest);
