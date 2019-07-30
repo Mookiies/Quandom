@@ -17,6 +17,7 @@
     <string name="win_callout">%1$s Wins!</string>
     <string name="play_again">PLAY AGAIN</string>
     <string name="back_button_quit">Press BACK again to quit game</string>
+    <string name="cache_switch">Use Cache</string>
     <string name="custom_cats">Categories</string>
     <string name="custom_diff">Difficulty</string>
     <string name="all">Click Here for All</string>

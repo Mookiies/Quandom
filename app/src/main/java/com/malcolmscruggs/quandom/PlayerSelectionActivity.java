@@ -7,8 +7,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import utils.GameModel;
@@ -36,6 +42,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Player> players;
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
+    private boolean useCache;
+    private String cachedQuestions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,15 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // set default values for # of players and points
         numPlayers = 2;
         numPoints = 5;
+
+        // Set cached questions from file
+        cachedQuestions = readFromTextFile(R.raw.questions);
+
+
+        //Set default cache values
+        useCache = false;
+        Switch cacheSwitch = findViewById(R.id.cacheSwitch);
+        cacheSwitch.setChecked(useCache);
 
         // get number pickers and set up values and listeners
         NumberPicker numPickerPlayers = findViewById(R.id.playersPicker);
@@ -136,46 +154,59 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // set on checked for cache
+        cacheSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                useCache = b;
+                compoundButton.setChecked(useCache);
+            }
+        });
     }
 
     private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        //Question Type
-        String mcqOrTF;
-        if (mcq) {
-            mcqOrTF = "multiple";
+        if (useCache) {
+            startIntent(cachedQuestions);
         } else {
-            mcqOrTF = "boolean";
-        }
+            RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url;
-
-        if (category == 8) {
-            url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
-        }
-
-        url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
-
-        Log.d("URL", url);
-
-        final StringRequest stringRquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("APIResp", response);
-                //TODO handle when response doesn't contain necessary info
-                startIntent(response);
+            //Question Type
+            String mcqOrTF;
+            if (mcq) {
+                mcqOrTF = "multiple";
+            } else {
+                mcqOrTF = "boolean";
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                String errorMessage = error.getMessage();
-                Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
-                Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
 
+            String url;
+
+            if (category == 8) {
+                url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
             }
-        });
-        queue.add(stringRquest);
+
+            url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
+
+            Log.d("URL", url);
+
+            final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("APIResp", response);
+                    //TODO handle when response doesn't contain necessary info
+                    startIntent(response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    String errorMessage = error.getMessage();
+                    Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
+                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            queue.add(stringRequest);
+        }
     }
 
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
@@ -222,5 +253,22 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         }
         intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
         startActivity(intent);
+    }
+
+    private String readFromTextFile(int resID) {
+        StringBuilder contents = new StringBuilder();
+        try {
+            InputStream is = getApplicationContext().getResources().openRawResource(resID);
+            BufferedReader bs = new BufferedReader(new InputStreamReader(is));
+            String tmp = null;
+            while ((tmp = bs.readLine()) != null) {
+                contents.append(tmp);
+                contents.append("\n");
+            }
+            bs.close();
+        } catch (IOException e) {
+            Log.d("CacheQUES", e.getMessage());
+        }
+        return contents.toString();
     }
 }
