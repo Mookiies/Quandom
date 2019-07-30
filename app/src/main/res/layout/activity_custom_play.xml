@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomPlayActivity"
-    android:orientation="vertical">
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:context=".CustomPlayActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin">
 
             <LinearLayout
                 android:id="@+id/categories"
@@ -23,13 +26,13 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/custom_cats"
-                    android:textSize="18dp"
-                    android:fontFamily="@font/press_start_2p_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/default_vertical_margin"/>
+                    android:layout_marginTop="@dimen/default_vertical_margin"
+                    android:fontFamily="@font/press_start_2p_regular"
+                    android:text="@string/custom_cats"
+                    android:textSize="24sp"/>
 
                 <RadioGroup
                     android:id="@+id/catRadioGroup"
@@ -39,228 +42,128 @@
 
                     <RadioButton
                         android:id="@+id/all"
-                        android:text="@string/all"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/all" />
 
                     <RadioButton
                         android:id="@+id/generalKnowledge"
-                        android:text="@string/general_knowledge"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/general_knowledge" />
 
                     <RadioButton
                         android:id="@+id/entBooks"
-                        android:text="@string/entertainment_books"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_books" />
 
                     <RadioButton
                         android:id="@+id/entFilm"
-                        android:text="@string/entertainment_film"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_film" />
 
                     <RadioButton
                         android:id="@+id/entMusic"
-                        android:text="@string/entertainment_music"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_music" />
 
                     <RadioButton
                         android:id="@+id/entMusicalsTheatres"
-                        android:text="@string/entertainment_musicals_theatres"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_musicals_theatres" />
 
                     <RadioButton
                         android:id="@+id/entTelevision"
-                        android:text="@string/entertainment_television"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_television" />
 
                     <RadioButton
                         android:id="@+id/entVideoGames"
-                        android:text="@string/entertainment_video_games"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_video_games" />
 
                     <RadioButton
                         android:id="@+id/entBoardGames"
-                        android:text="@string/entertainment_board_games"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_board_games" />
 
                     <RadioButton
                         android:id="@+id/scienceNature"
-                        android:text="@string/science_nature"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/science_nature" />
 
                     <RadioButton
                         android:id="@+id/scienceComputers"
-                        android:text="@string/science_computers"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/science_computers" />
 
                     <RadioButton
                         android:id="@+id/scienceMathematics"
-                        android:text="@string/science_mathematics"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/science_mathematics" />
 
                     <RadioButton
                         android:id="@+id/mythology"
-                        android:text="@string/mythology"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/mythology" />
 
                     <RadioButton
                         android:id="@+id/sports"
-                        android:text="@string/sports"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/sports" />
 
                     <RadioButton
                         android:id="@+id/geography"
-                        android:text="@string/geography"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/geography" />
 
                     <RadioButton
                         android:id="@+id/history"
-                        android:text="@string/history"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/history" />
 
                     <RadioButton
                         android:id="@+id/politics"
-                        android:text="@string/politics"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/politics" />
 
                     <RadioButton
                         android:id="@+id/art"
-                        android:text="@string/art"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/art" />
 
                     <RadioButton
                         android:id="@+id/celebrities"
-                        android:text="@string/celebrities"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/celebrities" />
 
                     <RadioButton
                         android:id="@+id/animals"
-                        android:text="@string/animals"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/animals" />
 
                     <RadioButton
                         android:id="@+id/vehicles"
-                        android:text="@string/vehicles"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/vehicles" />
 
                     <RadioButton
                         android:id="@+id/entComics"
-                        android:text="@string/entertainment_comics"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_comics" />
 
                     <RadioButton
                         android:id="@+id/scienceGadgets"
-                        android:text="@string/science_gadgets"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/science_gadgets" />
 
                     <RadioButton
                         android:id="@+id/entJapanese"
-                        android:text="@string/entertainment_japanese"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_japanese" />
 
                     <RadioButton
                         android:id="@+id/entCartoonsAnimations"
-                        android:text="@string/entertainment_cartoons_animations"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        style="@style/CustomCategoryButton"
+                        android:text="@string/entertainment_cartoons_animations" />
 
                 </RadioGroup>
 
@@ -273,52 +176,37 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/custom_diff"
-                    android:textSize="18dp"
-                    android:fontFamily="@font/press_start_2p_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/default_vertical_margin"/>
+                    android:layout_marginTop="@dimen/default_vertical_margin"
+                    android:fontFamily="@font/press_start_2p_regular"
+                    android:text="@string/custom_diff"
+                    android:textSize="24sp" />
 
                 <RadioGroup
                     android:id="@+id/diffsGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <RadioButton
                         android:id="@+id/easy"
+                        style="@style/CustomCategoryButton"
                         android:tag="@string/easy"
-                        android:text="@string/easy"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_marginRight="@dimen/default_horizontal_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="@string/easy" />
 
                     <RadioButton
                         android:id="@+id/medium"
+                        style="@style/CustomCategoryButton"
                         android:tag="@string/medium"
-                        android:text="@string/medium"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_marginRight="@dimen/default_horizontal_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="@string/medium" />
 
                     <RadioButton
                         android:id="@+id/hard"
+                        style="@style/CustomCategoryButton"
                         android:tag="@string/hard"
-                        android:text="@string/hard"
-                        android:textSize="@dimen/big_button_text_size"
-                        android:layout_marginLeft="@dimen/default_horizontal_margin"
-                        android:layout_marginTop="@dimen/default_vertical_margin"
-                        android:layout_marginRight="@dimen/default_horizontal_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="@string/hard" />
 
                 </RadioGroup>
 
@@ -326,13 +214,12 @@
 
             <Button
                 android:id="@+id/nextButton"
-                android:text="@string/next_button"
-                android:textSize="@dimen/big_button_text_size"
-                android:fontFamily="@font/press_start_2p"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/default_vertical_margin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/default_vertical_margin"
+                android:layout_marginTop="12dp"
+                android:text="@string/next_button" />
 
         </LinearLayout>
 

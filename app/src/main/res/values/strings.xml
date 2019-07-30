@@ -17,8 +17,8 @@
     <string name="win_callout">%1$s Wins!</string>
     <string name="play_again">PLAY AGAIN</string>
     <string name="back_button_quit">Press BACK again to quit game</string>
-    <string name="custom_cats">Choose Your Categories</string>
-    <string name="custom_diff">Choose Your Difficulty</string>
+    <string name="custom_cats">Categories</string>
+    <string name="custom_diff">Difficulty</string>
     <string name="all">Click Here for All</string>
     <string name="general_knowledge">General Knowledge</string>
     <string name="entertainment_books">Entertainment: Books</string>
