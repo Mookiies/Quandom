@@ -7,8 +7,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -37,6 +39,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Player> players;
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
+    private boolean useCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // set default values for # of players and points
         numPlayers = 2;
         numPoints = 5;
+
+        //Set default cache values
+        useCache = false;
+        Switch cacheSwitch = findViewById(R.id.cacheSwitch);
+        cacheSwitch.setChecked(useCache);
 
         // get number pickers and set up values and listeners
         NumberPicker numPickerPlayers = findViewById(R.id.playersPicker);
@@ -128,6 +136,16 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 populateQuestions(numPoints, 9, 1, true);
+            }
+        });
+
+        // set on checked for cache
+        cacheSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                useCache = b;
+                compoundButton.setChecked(useCache);
+                Log.d("SwitchCACHE", String.valueOf(useCache));
             }
         });
     }
