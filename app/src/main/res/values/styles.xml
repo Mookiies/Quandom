@@ -16,7 +16,7 @@
     </style>
 
     <style name="ButtonTheme" parent="Widget.AppCompat.Button">
-        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:backgroundTint">@color/secondaryColor</item>
         <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:paddingEnd">@dimen/default_horizontal_padding</item>
         <item name="android:paddingStart">@dimen/default_horizontal_padding</item>
