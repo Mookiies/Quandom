@@ -23,6 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,24 +44,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
-    static final String cachedQuestions = "{\"response_code\":0,\"results\":[{\"category\":\"General" +
-            " Knowledge\",\"type\":\"multiple\",\"difficulty\":\"medium\",\"question\":\"In a " +
-            "standard set of playing cards, which is the only king without a moustache?\"," +
-            "\"correct_answer\":\"Hearts\",\"incorrect_answers\":[\"Spades\",\"Diamonds\",\"" +
-            "Clubs\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\",\"difficulty\":" +
-            "\"medium\",\"question\":\"What is the defining characteristic of someone who is " +
-            "described as hirsute?\",\"correct_answer\":\"Hairy\",\"incorrect_answers\":[\"Rude" +
-            "\",\"Funny\",\"Tall\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\"," +
-            "\"difficulty\":\"medium\",\"question\":\"When was Nintendo founded?\",\"correct_answer" +
-            "\":\"September 23rd, 1889\",\"incorrect_answers\":[\"October 19th, 1891\",\"March 4th" +
-            ", 1887\",\"December 27th, 1894\"]},{\"category\":\"General Knowledge\",\"type\":" +
-            "\"multiple\",\"difficulty\":\"medium\",\"question\":\"Amsterdam Centraal station is" +
-            " twinned with what station?\",\"correct_answer\":\"London Liverpool Street\",\"" +
-            "incorrect_answers\":[\"Frankfurt (Main) Hauptbahnhof\",\"Paris Gare du Nord\",\"" +
-            "Brussels Midi\"]},{\"category\":\"General Knowledge\",\"type\":\"multiple\",\"" +
-            "difficulty\":\"medium\",\"question\":\"What was the original name of the search " +
-            "engine &quot;Google&quot;?\",\"correct_answer\":\"BackRub\",\"incorrect_answers" +
-            "\":[\"CatMassage\",\"SearchPro\",\"Netscape Navigator\"]}]}";
+    private String cachedQuestions = "bogus";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +64,12 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // set default values for # of players and points
         numPlayers = 2;
         numPoints = 5;
+
+        // Set cached questions from file
+        Log.d("CacheTEXT", "before: " + cachedQuestions);
+        cachedQuestions = readFromTextFile(R.raw.questions);
+        Log.d("CacheTEXT", "after: " + cachedQuestions);
+
 
         //Set default cache values
         useCache = false;
@@ -253,5 +247,22 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         }
         intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
         startActivity(intent);
+    }
+
+    private String readFromTextFile(int resID) {
+        StringBuilder contents = new StringBuilder();
+        try {
+            InputStream is = getApplicationContext().getResources().openRawResource(resID);
+            BufferedReader bs = new BufferedReader(new InputStreamReader(is));
+            String tmp = null;
+            while ((tmp = bs.readLine()) != null) {
+                contents.append(tmp);
+                contents.append("\n");
+            }
+            bs.close();
+        } catch (IOException e) {
+            Log.d("CacheQUES", e.getMessage());
+        }
+        return contents.toString();
     }
 }
