@@ -21,8 +21,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import utils.GameModel;
 import utils.Player;
@@ -127,7 +125,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bundle extras = getIntent().getExtras();
-                if (extras.getString("Type") == "quick") {
+                String type = extras.getString("Type");
+                if (type != null && type.equals("quick")) {
                     populateQuestions(numPoints, 9, "easy", true);
                 } else {
                     populateQuestions(numPoints, extras.getInt("Category"),
