@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,6 +45,8 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
     private String cachedQuestions;
+
+    private final static int TIMEOUT_DURATION = 5000;
 
 
     @Override
@@ -213,10 +216,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     String errorMessage = error.getMessage();
                     Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
-                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                    startIntent(cachedQuestions);
                 }
             });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
             queue.add(stringRequest);
         }
     }
@@ -255,6 +259,10 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     }
 
     private void startIntent(String response) {
+        if (response == null) {
+            Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
         ArrayList<Player> gamePlayer = new ArrayList<>(players);
         if (numPlayers == 1) {
@@ -280,6 +288,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             bs.close();
         } catch (IOException e) {
             Log.d("CacheQUES", e.getMessage());
+            return null;
         }
         return contents.toString();
     }
