@@ -11,4 +11,5 @@
     <dimen name="player_selection_top_pad">20dp</dimen>
     <dimen name="question_text_size">24sp</dimen>
     <dimen name="cache_switch_padding">10dp</dimen>
+    <dimen name="music_switch_top_pad">40dp</dimen>
 </resources>

@@ -59,6 +59,16 @@
             android:textSize="@dimen/big_button_text_size"
             android:textStyle="bold" />
 
+        <Switch
+            android:id="@+id/musicSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/music_switch_top_pad"
+            android:switchPadding="@dimen/cache_switch_padding"
+            android:text="@string/music_switch"
+            android:textSize="@dimen/player_selection_text_size" />
+
     </LinearLayout>
 
 </LinearLayout>

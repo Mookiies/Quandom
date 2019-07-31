@@ -50,4 +50,5 @@
     <string name="hard">Hard</string>
     <string name="next_button">NEXT</string>
     <string name="api_error">Error getting questions</string>
+    <string name="music_switch">Music</string>
 </resources>
