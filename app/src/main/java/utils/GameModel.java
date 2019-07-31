@@ -85,8 +85,15 @@ final public class GameModel implements Serializable {
         return this.isGameOver;
     }
 
-    public Player getWinningPlayer() {
-        return Collections.max(players);
+    public ArrayList<Player> getWinningPlayer() {
+        ArrayList<Player> winners = new ArrayList<>();
+        Player highestPlayer = Collections.max(players);
+        for (Player player : players) {
+            if (player.getPlayerScore() == highestPlayer.getPlayerScore()) {
+                winners.add(player);
+            }
+        }
+        return winners;
     }
 
     public boolean guessQuestion(int guess) {

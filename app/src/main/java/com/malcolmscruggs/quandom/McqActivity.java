@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,11 +125,26 @@ public class McqActivity extends AppCompatActivity {
 
     private void setCurrentQuestion() {
         if (gameModel.isGameOver()) {
-            Player winner = gameModel.getWinningPlayer();
-            Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-            intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
-            startActivity(intent);
-            return;
+            ArrayList<Player> winners = gameModel.getWinningPlayer();
+            if (winners.size() == 1) {
+                Player winner = winners.get(0);
+                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+                intent.putExtra("Type", "win");
+                intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
+                startActivity(intent);
+                return;
+            } else {
+                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+                intent.putExtra("Type", "tie");
+
+                ArrayList<String> winnerNames = new ArrayList<>();
+                for (Player player : winners) {
+                    winnerNames.add(player.getPlayerName());
+                }
+                intent.putExtra(WINNING_PLAYER_KEY, winnerNames);
+                startActivity(intent);
+                return;
+            }
         }
 
         Question question = gameModel.getCurrentQuestion();
