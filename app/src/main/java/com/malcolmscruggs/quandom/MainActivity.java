@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         Button quickPlay = findViewById(R.id.quickPlayButton);
         quickPlay.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent quickPlayItent = new Intent(getApplicationContext(), PlayerSelectionActivity.class);
-                quickPlayItent.putExtra("Type", "quick");
-                startActivity(quickPlayItent);
+                Intent quickPlayIntent = new Intent(getApplicationContext(), PlayerSelectionActivity.class);
+                quickPlayIntent.putExtra("Type", "quick");
+                startActivity(quickPlayIntent);
             }
         });
 
