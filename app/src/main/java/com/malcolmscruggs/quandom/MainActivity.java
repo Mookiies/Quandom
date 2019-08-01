@@ -1,18 +1,12 @@
 package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
-
-    private boolean music;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Set default value for music
         //Source: http://freemusicarchive.org/music/Daniel_Birch/MUSIC_FOR_TV_FILM__GAMES_VOL1/The_Elevator_Game
-        music = getIntent().getBooleanExtra("Music", false);
         Switch musicSwitch = findViewById(R.id.musicSwitch);
-        musicSwitch.setChecked(music);
+        setupMusicSwitch(musicSwitch);
 
         Button quickPlay = findViewById(R.id.quickPlayButton);
         quickPlay.setOnClickListener(new View.OnClickListener() {
@@ -44,25 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(customPlayIntent);
             }
         });
-
-        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                music = b;
-                compoundButton.setChecked(music);
-                toggleMusic(music);
-            }
-        });
-    }
-
-    private void toggleMusic(boolean music) {
-        Intent musicIntent = new Intent(this, MusicService.class);
-        musicIntent.putExtra("Music", music);
-        if (music) {
-            startService(musicIntent);
-        } else {
-            stopService(musicIntent);
-        }
     }
 
     @Override

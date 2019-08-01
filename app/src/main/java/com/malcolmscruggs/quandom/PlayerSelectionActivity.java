@@ -1,5 +1,7 @@
 package com.malcolmscruggs.quandom;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -36,7 +38,7 @@ import utils.Player;
 
 import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
 
-public class PlayerSelectionActivity extends AppCompatActivity {
+public class PlayerSelectionActivity extends BaseActivity {
 
     private int numPlayers;
     private int numPoints;
@@ -45,7 +47,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
     private String cachedQuestions;
-    private boolean music;
 
     private final static int TIMEOUT_DURATION = 5000;
 
@@ -78,7 +79,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
 
         // Set music switch
         Switch musicSwitch = findViewById(R.id.musicSwitch);
-        musicSwitch.setChecked(music);
+        setupMusicSwitch(musicSwitch);
 
         //Set default cache values
         useCache = false;
@@ -189,25 +190,6 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 compoundButton.setChecked(useCache);
             }
         });
-
-        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                music = b;
-                toggleMusic(music);
-                compoundButton.setChecked(music);
-            }
-        });
-    }
-
-    private void toggleMusic(boolean music) {
-        Intent musicIntent = new Intent(this, MusicService.class);
-        musicIntent.putExtra("Music", music);
-        if (music) {
-            startService(musicIntent);
-        } else {
-            stopService(musicIntent);
-        }
     }
 
     private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {

@@ -60,4 +60,13 @@
         <item name="android:textSize">@dimen/question_text_size</item>
     </style>
 
+    <style name="MusicSwitch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/music_switch</item>
+        <item name="android:layout_marginTop">@dimen/default_vertical_margin</item>
+        <item name="android:textSize">@dimen/player_selection_text_size</item>
+        <item name="android:switchPadding">@dimen/cache_switch_padding</item>
+    </style>
+
 </resources>
