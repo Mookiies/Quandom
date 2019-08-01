@@ -3,7 +3,6 @@ package com.malcolmscruggs.quandom;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -19,7 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("SWITCH", "onCheckedChanged");
                 music = b;
                 compoundButton.setChecked(music);
                 toggleMusic(music);
