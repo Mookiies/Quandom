@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,6 +91,9 @@ public class McqActivity extends AppCompatActivity {
         if (players.size() > 2) {
             player3Score.setVisibility(View.VISIBLE);
         }
+        if (players.size() > 3) {
+            player3Score.setVisibility(View.VISIBLE);
+        }
 
         player1Score.setText(players.get(0).getPlayerName() + ": 0");
         player1Score.setBackgroundColor(getResources().getColor(players.get(0).getPlayerColor(), getTheme()));
@@ -168,20 +173,25 @@ public class McqActivity extends AppCompatActivity {
     private void setPlayerScores() {
         List<Player> players = gameModel.getPlayers();
         Player p1 = players.get(0);
+        final Animation bounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        player1Score.startAnimation(bounce);
         player1Score.setText(p1.getPlayerName() + ": " + p1.getPlayerScore());
 
         if (players.size() > 1) {
             Player p2 = players.get(1);
+            player2Score.startAnimation(bounce);
             player2Score.setText(p2.getPlayerName() + ": " + p2.getPlayerScore());
         }
 
         if (players.size() > 2) {
             Player p3 = players.get(2);
+            player3Score.startAnimation(bounce);
             player3Score.setText(p3.getPlayerName() + ": " + p3.getPlayerScore());
         }
 
         if (players.size() > 3) {
             Player p4 = players.get(3);
+            player4Score.startAnimation(bounce);
             player4Score.setText(p4.getPlayerName() + ": " + p4.getPlayerScore());
         }
     }

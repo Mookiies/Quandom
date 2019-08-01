@@ -230,15 +230,36 @@
                 android:layout_marginBottom="40dp"
                 android:text="@string/play_game" />
 
-            <Switch
-                android:id="@+id/cacheSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/player_selection_outer_margin"
-                android:switchPadding="@dimen/cache_switch_padding"
-                android:text="@string/cache_switch"
-                android:textSize="@dimen/player_selection_text_size" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/musicSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/player_selection_outer_margin"
+                    android:layout_marginRight="@dimen/player_selection_outer_margin"
+                    android:layout_weight="1"
+                    android:switchPadding="@dimen/cache_switch_padding"
+                    android:text="@string/music_switch"
+                    android:textSize="@dimen/player_selection_text_size" />
+
+                <Switch
+                    android:id="@+id/cacheSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/player_selection_outer_margin"
+                    android:layout_weight="1"
+                    android:switchPadding="@dimen/cache_switch_padding"
+                    android:text="@string/cache_switch"
+                    android:textSize="@dimen/player_selection_text_size" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

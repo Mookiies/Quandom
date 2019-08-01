@@ -45,6 +45,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
     private String cachedQuestions;
+    private boolean music;
 
     private final static int TIMEOUT_DURATION = 5000;
 
@@ -71,6 +72,13 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // Set cached questions from file
         cachedQuestions = readFromTextFile(R.raw.questions);
 
+        // Set music value
+        music = getIntent().getBooleanExtra("Music", false);
+        Log.d("MusicSERV", "selection: " + music);
+
+        // Set music switch
+        Switch musicSwitch = findViewById(R.id.musicSwitch);
+        musicSwitch.setChecked(music);
 
         //Set default cache values
         useCache = false;
@@ -99,14 +107,17 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 1:
                         findViewById(R.id.p2Layout).setVisibility(View.GONE);
                         findViewById(R.id.p3Layout).setVisibility(View.GONE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
                     case 2:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.GONE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
                     case 4:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
@@ -178,6 +189,25 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 compoundButton.setChecked(useCache);
             }
         });
+
+        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                music = b;
+                toggleMusic(music);
+                compoundButton.setChecked(music);
+            }
+        });
+    }
+
+    private void toggleMusic(boolean music) {
+        Intent musicIntent = new Intent(this, MusicService.class);
+        musicIntent.putExtra("Music", music);
+        if (music) {
+            startService(musicIntent);
+        } else {
+            stopService(musicIntent);
+        }
     }
 
     private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
@@ -266,10 +296,14 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
         ArrayList<Player> gamePlayer = new ArrayList<>(players);
         if (numPlayers == 1) {
+            gamePlayer.remove(3);
             gamePlayer.remove(2);
             gamePlayer.remove(1);
         } else if (numPlayers == 2) {
+            gamePlayer.remove(3);
             gamePlayer.remove(2);
+        } else if (numPlayers == 3) {
+            gamePlayer.remove(3);
         }
         intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
         startActivity(intent);
