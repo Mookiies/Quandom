@@ -1,26 +1,24 @@
 package com.malcolmscruggs.quandom;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-public class CustomPlayActivity extends AppCompatActivity {
+public class CustomPlayActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_play);
+
+        Switch musicSwitch = findViewById(R.id.musicSwitch);
+        setupMusicSwitch(musicSwitch);
 
         Button nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {

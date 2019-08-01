@@ -32,5 +32,6 @@ public class MusicService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "Music service destroyed.", Toast.LENGTH_SHORT).show();
         mediaPlayer.stop();
+        mediaPlayer.release();
     }
 }

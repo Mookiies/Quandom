@@ -1,19 +1,17 @@
 package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ import utils.Question;
 
 import static com.malcolmscruggs.quandom.WinActivity.WINNING_PLAYER_KEY;
 
-public class McqActivity extends AppCompatActivity {
+public class McqActivity extends BaseActivity {
 
     public static final String MODEL_EXTRA_KEY = "QUESTIONS";
     private GameModel gameModel;
@@ -45,7 +43,9 @@ public class McqActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mcq);
 
         gameModel = (GameModel) getIntent().getSerializableExtra(MODEL_EXTRA_KEY);
-        Log.d("GAMEMODEL", gameModel.toString());
+
+        Switch musicSwitch = findViewById(R.id.musicSwitch);
+        setupMusicSwitch(musicSwitch);
 
         currentPlayerTextView = findViewById(R.id.currentPlayerTextView);
         questionTextView = findViewById(R.id.mcqQuestionTextView);

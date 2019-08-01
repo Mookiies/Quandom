@@ -90,6 +90,10 @@
                 android:id="@+id/mcqAnswerDButton"
                 style="@style/MCQButton"/>
 
+            <Switch
+                android:id="@+id/musicSwitch"
+                style="@style/MusicSwitch" />
+
         </LinearLayout>
     </ScrollView>
 
