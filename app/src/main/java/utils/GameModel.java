@@ -53,7 +53,7 @@ final public class GameModel implements Serializable {
                 ArrayList<String> answers = new ArrayList<>();
 
                 for (int j = 0; j < ans.length(); j++) {
-                    answers.add(ans.getString(j));
+                    answers.add(unescapeHtml4(ans.getString(j)));
                 }
                 answers.add(correctIdx, correctAns);
                 Question questionObj = new Question(questionText, answers, correctIdx);
