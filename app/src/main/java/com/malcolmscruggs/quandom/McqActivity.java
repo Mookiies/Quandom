@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +91,12 @@ public class McqActivity extends AppCompatActivity {
         if (players.size() > 2) {
             player3Score.setVisibility(View.VISIBLE);
         }
+        if (players.size() > 3) {
+            player3Score.setVisibility(View.VISIBLE);
+        }
 
         player1Score.setText(players.get(0).getPlayerName() + ": 0");
-        player1Score.setBackgroundColor(getResources().getColor(players.get(0).getPlayerColor()));
+        player1Score.setBackgroundColor(getResources().getColor(players.get(0).getPlayerColor(), getTheme()));
 
         switch (players.size()) {
             case 1:
@@ -102,35 +106,50 @@ public class McqActivity extends AppCompatActivity {
                 break;
             case 2:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor(), getTheme()));
                 player3Score.setVisibility(View.GONE);
                 player4Score.setVisibility(View.GONE);
                 break;
             case 3:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
                 player3Score.setText(players.get(2).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
-                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor()));
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor(), getTheme()));
+                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor(), getTheme()));
                 player4Score.setVisibility(View.GONE);
                 break;
             case 4:
                 player2Score.setText(players.get(1).getPlayerName() + ": 0");
                 player3Score.setText(players.get(2).getPlayerName() + ": 0");
                 player4Score.setText(players.get(3).getPlayerName() + ": 0");
-                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor()));
-                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor()));
-                player4Score.setBackgroundColor(getResources().getColor(players.get(3).getPlayerColor()));
+                player2Score.setBackgroundColor(getResources().getColor(players.get(1).getPlayerColor(), getTheme()));
+                player3Score.setBackgroundColor(getResources().getColor(players.get(2).getPlayerColor(), getTheme()));
+                player4Score.setBackgroundColor(getResources().getColor(players.get(3).getPlayerColor(), getTheme()));
                 break;
         }
     }
 
     private void setCurrentQuestion() {
         if (gameModel.isGameOver()) {
-            Player winner = gameModel.getWinningPlayer();
-            Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-            intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
-            startActivity(intent);
-            return;
+            ArrayList<Player> winners = gameModel.getWinningPlayer();
+            if (winners.size() == 1) {
+                Player winner = winners.get(0);
+                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+                intent.putExtra("Type", "win");
+                intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
+                startActivity(intent);
+                return;
+            } else {
+                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+                intent.putExtra("Type", "tie");
+
+                ArrayList<String> winnerNames = new ArrayList<>();
+                for (Player player : winners) {
+                    winnerNames.add(player.getPlayerName());
+                }
+                intent.putExtra(WINNING_PLAYER_KEY, winnerNames);
+                startActivity(intent);
+                return;
+            }
         }
 
         Question question = gameModel.getCurrentQuestion();
@@ -148,7 +167,7 @@ public class McqActivity extends AppCompatActivity {
     private void setCurrentPlayer() {
         Player player = gameModel.getGuessingPlayer();
         currentPlayerTextView.setText(getString(R.string.currrent_player_turn, player.getPlayerName()));
-        findViewById(R.id.currPlayerContainer).setBackgroundColor(getResources().getColor(player.getPlayerColor()));
+        findViewById(R.id.currPlayerContainer).setBackgroundColor(getResources().getColor(player.getPlayerColor(), getTheme()));
     }
 
     private void setPlayerScores() {

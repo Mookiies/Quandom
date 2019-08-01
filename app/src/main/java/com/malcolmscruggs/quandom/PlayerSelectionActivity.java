@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,6 +45,9 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
     private String cachedQuestions;
+    private boolean music;
+
+    private final static int TIMEOUT_DURATION = 5000;
 
 
     @Override
@@ -54,6 +58,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         colors.add(R.color.materialIndigo);
         colors.add(R.color.materialCyan);
         colors.add(R.color.materialGreen);
+        colors.add(R.color.materialGreenYellow);
         colors.add(R.color.materialRed);
         colors.add(R.color.materialPink);
         colors.add(R.color.materialPurple);
@@ -67,6 +72,13 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         // Set cached questions from file
         cachedQuestions = readFromTextFile(R.raw.questions);
 
+        // Set music value
+        music = getIntent().getBooleanExtra("Music", false);
+        Log.d("MusicSERV", "selection: " + music);
+
+        // Set music switch
+        Switch musicSwitch = findViewById(R.id.musicSwitch);
+        musicSwitch.setChecked(music);
 
         //Set default cache values
         useCache = false;
@@ -78,12 +90,14 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         NumberPicker numPickerPoints = findViewById(R.id.pointsPicker);
 
         numPickerPlayers.setMinValue(1);
-        numPickerPlayers.setMaxValue(3);
+        numPickerPlayers.setMaxValue(4);
         numPickerPlayers.setValue(2);
+        numPickerPlayers.setWrapSelectorWheel(false);
 
         numPickerPoints.setMinValue(1);
         numPickerPoints.setMaxValue(10);
         numPickerPoints.setValue(5);
+        numPickerPoints.setWrapSelectorWheel(false);
 
         numPickerPlayers.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -93,15 +107,22 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                     case 1:
                         findViewById(R.id.p2Layout).setVisibility(View.GONE);
                         findViewById(R.id.p3Layout).setVisibility(View.GONE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
                     case 2:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.GONE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
                     case 3:
                         findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
                         findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p4Layout).setVisibility(View.GONE);
                         break;
+                    case 4:
+                        findViewById(R.id.p2Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p3Layout).setVisibility(View.VISIBLE);
+                        findViewById(R.id.p4Layout).setVisibility(View.VISIBLE);
                     default:
                         break;
                 }
@@ -116,28 +137,33 @@ public class PlayerSelectionActivity extends AppCompatActivity {
         });
 
         // create Players
-        players = new ArrayList<>(3);
+        players = new ArrayList<>(4);
         players.add(new Player(getString(R.string.player1_placeholder), colors.remove(0)));
         players.add(new Player(getString(R.string.player2_placeholder), colors.remove(0)));
         players.add(new Player(getString(R.string.player3_placeholder), colors.remove(0)));
+        players.add(new Player(getString(R.string.player4_placeholder), colors.remove(0)));
 
         // get player name editors and set up listeners
         final EditText playerNameChange1 = findViewById(R.id.p1NameText);
         final EditText playerNameChange2 = findViewById(R.id.p2NameText);
         final EditText playerNameChange3 = findViewById(R.id.p3NameText);
+        final EditText playerNameChange4 = findViewById(R.id.p4NameText);
 
         setupPlayerEditText(0, playerNameChange1);
         setupPlayerEditText(1, playerNameChange2);
         setupPlayerEditText(2, playerNameChange3);
+        setupPlayerEditText(3, playerNameChange4);
 
         // get player color editors and set up listeners
         final Button playerColor1 = findViewById(R.id.p1Color);
         final Button playerColor2 = findViewById(R.id.p2Color);
         final Button playerColor3 = findViewById(R.id.p3Color);
+        final Button playerColor4 = findViewById(R.id.p4Color);
 
         setupPlayerColor(0, playerColor1);
         setupPlayerColor(1, playerColor2);
         setupPlayerColor(2, playerColor3);
+        setupPlayerColor(3, playerColor4);
 
         // get button and set button listener
         playButton = findViewById(R.id.playButton);
@@ -163,6 +189,25 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 compoundButton.setChecked(useCache);
             }
         });
+
+        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                music = b;
+                toggleMusic(music);
+                compoundButton.setChecked(music);
+            }
+        });
+    }
+
+    private void toggleMusic(boolean music) {
+        Intent musicIntent = new Intent(this, MusicService.class);
+        musicIntent.putExtra("Music", music);
+        if (music) {
+            startService(musicIntent);
+        } else {
+            stopService(musicIntent);
+        }
     }
 
     private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
@@ -201,10 +246,11 @@ public class PlayerSelectionActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     String errorMessage = error.getMessage();
                     Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
-                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
+                    startIntent(cachedQuestions);
                 }
             });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
             queue.add(stringRequest);
         }
     }
@@ -243,13 +289,21 @@ public class PlayerSelectionActivity extends AppCompatActivity {
     }
 
     private void startIntent(String response) {
+        if (response == null) {
+            Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
         ArrayList<Player> gamePlayer = new ArrayList<>(players);
         if (numPlayers == 1) {
+            gamePlayer.remove(3);
             gamePlayer.remove(2);
             gamePlayer.remove(1);
         } else if (numPlayers == 2) {
+            gamePlayer.remove(3);
             gamePlayer.remove(2);
+        } else if (numPlayers == 3) {
+            gamePlayer.remove(3);
         }
         intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
         startActivity(intent);
@@ -268,6 +322,7 @@ public class PlayerSelectionActivity extends AppCompatActivity {
             bs.close();
         } catch (IOException e) {
             Log.d("CacheQUES", e.getMessage());
+            return null;
         }
         return contents.toString();
     }

@@ -181,6 +181,46 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/p4Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="@dimen/player_selection_outer_margin"
+                android:layout_marginEnd="@dimen/player_selection_outer_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/p4"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="@dimen/player_selection_text_size" />
+
+                <EditText
+                    android:id="@+id/p4NameText"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="50dp"
+                    android:inputType="text"
+                    android:maxEms="7"
+                    android:minEms="2"
+                    android:textColor="@color/primaryTextColor"
+                    android:text="@string/player4_placeholder" />
+
+                <Button
+                    android:id="@+id/p4Color"
+                    android:backgroundTint="@color/materialRed"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
             <Button
                 android:id="@+id/playButton"
                 android:layout_width="wrap_content"
@@ -190,15 +230,36 @@
                 android:layout_marginBottom="40dp"
                 android:text="@string/play_game" />
 
-            <Switch
-                android:id="@+id/cacheSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/player_selection_outer_margin"
-                android:switchPadding="@dimen/cache_switch_padding"
-                android:text="@string/cache_switch"
-                android:textSize="@dimen/player_selection_text_size" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:id="@+id/musicSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/player_selection_outer_margin"
+                    android:layout_marginRight="@dimen/player_selection_outer_margin"
+                    android:layout_weight="1"
+                    android:switchPadding="@dimen/cache_switch_padding"
+                    android:text="@string/music_switch"
+                    android:textSize="@dimen/player_selection_text_size" />
+
+                <Switch
+                    android:id="@+id/cacheSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/player_selection_outer_margin"
+                    android:layout_weight="1"
+                    android:switchPadding="@dimen/cache_switch_padding"
+                    android:text="@string/cache_switch"
+                    android:textSize="@dimen/player_selection_text_size" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

@@ -17,6 +17,7 @@
         android:layout_marginBottom="@dimen/default_vertical_margin"
         android:text="@string/win_callout"
         android:textSize="@dimen/callout_text_size"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -17,6 +17,8 @@
     <string name="win_callout">%1$s Wins!</string>
     <string name="play_again">PLAY AGAIN</string>
     <string name="back_button_quit">Press BACK again to quit game</string>
+    <string name="player4_placeholder">Player4</string>
+    <string name="p4">P4</string>
     <string name="cache_switch">Use Cache</string>
     <string name="custom_cats">Categories</string>
     <string name="custom_diff">Difficulty</string>
@@ -49,6 +51,7 @@
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
     <string name="next_button">NEXT</string>
-    <string name="api_error">Error getting questions</string>
+    <string name="api_error">Error getting questions. Using cached questions</string>
+    <string name="fetch_error">Error fetching questions. Please try again.</string>
     <string name="music_switch">Music</string>
 </resources>

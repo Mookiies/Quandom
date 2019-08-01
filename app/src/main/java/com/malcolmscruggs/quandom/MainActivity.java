@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private boolean music;
-    private MediaPlayer musicMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Set default value for music
         //Source: http://freemusicarchive.org/music/Daniel_Birch/MUSIC_FOR_TV_FILM__GAMES_VOL1/The_Elevator_Game
-        musicMedia = MediaPlayer.create(MainActivity.this, R.raw.music);
-        music = false;
+        music = getIntent().getBooleanExtra("Music", false);
         Switch musicSwitch = findViewById(R.id.musicSwitch);
         musicSwitch.setChecked(music);
 
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent quickPlayIntent = new Intent(getApplicationContext(), PlayerSelectionActivity.class);
                 quickPlayIntent.putExtra("Type", "quick");
+                quickPlayIntent.putExtra("Music", music);
                 startActivity(quickPlayIntent);
             }
         });
@@ -51,13 +50,19 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 music = b;
                 compoundButton.setChecked(music);
-                if (music) {
-                    musicMedia.start();
-                } else {
-                    musicMedia.pause();
-                }
+                toggleMusic(music);
             }
         });
+    }
+
+    private void toggleMusic(boolean music) {
+        Intent musicIntent = new Intent(this, MusicService.class);
+        musicIntent.putExtra("Music", music);
+        if (music) {
+            startService(musicIntent);
+        } else {
+            stopService(musicIntent);
+        }
     }
 
     @Override
