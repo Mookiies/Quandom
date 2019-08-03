@@ -1,7 +1,5 @@
 package com.malcolmscruggs.quandom;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +13,6 @@ import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
@@ -244,7 +241,7 @@ public class PlayerSelectionActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                players.get(playerIdx).setPlayerName(editText.getText().toString());
+                players.get(playerIdx).setPlayerName(editText.getText().toString().trim());
             }
 
             @Override
