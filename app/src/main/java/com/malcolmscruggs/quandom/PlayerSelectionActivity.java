@@ -1,7 +1,5 @@
 package com.malcolmscruggs.quandom;
 
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +13,6 @@ import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
@@ -210,10 +207,9 @@ public class PlayerSelectionActivity extends BaseActivity {
 
             if (category == 8) {
                 url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
+            } else {
+                url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
             }
-
-            url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
-
             Log.d("URL", url);
 
             final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
