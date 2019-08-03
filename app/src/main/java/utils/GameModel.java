@@ -117,6 +117,7 @@ final public class GameModel implements Serializable {
             if (guess == correctAnswer) {
                 Player player = players.get(playerIdx);
                 player.increasePlayerScoreOnce();
+                currentQuestion.addCorrectGuessingPlayer(player);
             }
         }
     }
