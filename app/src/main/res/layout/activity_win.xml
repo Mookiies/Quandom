@@ -22,7 +22,21 @@
             android:layout_marginBottom="@dimen/default_vertical_margin"
             android:text="@string/win_callout"
             android:textAlignment="center"
-            android:textSize="@dimen/callout_text_size" />
+            android:textSize="@dimen/callout_text_size"
+            android:fontFamily="@font/press_start_2p"
+            android:lineSpacingExtra="8sp"/>
+
+        <LinearLayout
+            android:id="@+id/leaderboardContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="@dimen/default_vertical_margin"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:divider="?android:dividerHorizontal"
+            android:showDividers="middle" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,28 +68,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginTop="@dimen/default_vertical_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:layout_marginTop="40dp"
             android:text="@string/summary"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold" />
-
-        <!--TODO add a leaderboard-->
+            android:textSize="20sp"
+            android:fontFamily="@font/press_start_2p" />
 
         <LinearLayout
             android:id="@+id/summaryQuestionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="12dp"
             android:layout_marginBottom="@dimen/default_vertical_margin"
             android:layout_marginStart="@dimen/default_horizontal_margin"
             android:layout_marginEnd="@dimen/default_horizontal_margin"
             android:divider="?android:dividerHorizontal"
-            android:showDividers="middle">
-
-
-
-        </LinearLayout>
+            android:showDividers="middle" />
     </LinearLayout>
 
 </ScrollView>

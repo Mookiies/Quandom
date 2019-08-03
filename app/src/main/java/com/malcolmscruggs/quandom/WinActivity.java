@@ -23,7 +23,8 @@ public class WinActivity extends BaseActivity {
     private GameModel gameModel;
 
     private LinearLayout summaryContainer;
-    TextView winText;
+    private LinearLayout leaderboardContainer;
+    private TextView winText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,27 @@ public class WinActivity extends BaseActivity {
             }
         });
 
+        leaderboardContainer = findViewById(R.id.leaderboardContainer);
+        initializeLeaderboard();
+
         summaryContainer = findViewById(R.id.summaryQuestionContainer);
         initializeSummary();
 
         winText = findViewById(R.id.winText);
         setWinnerText();
+    }
+
+    private void initializeLeaderboard() {
+        ArrayList<Player> players = gameModel.getSortedPlayers();
+        for(int i = players.size() - 1; i >= 0; i--) {
+            Player player = players.get(i);
+            View view = View.inflate(this, R.layout.leaderboard_item, null);
+            TextView playerName = view.findViewById(R.id.leaderboardPlayerText);
+            View playerColor = view.findViewById(R.id.leaderboardPlayerColor);
+            playerName.setText(getString(R.string.leaderbaord_player_points, player.getPlayerName(), player.getPlayerScore()));
+            playerColor.setBackgroundColor(getResources().getColor(player.getPlayerColor(), getTheme()));
+            leaderboardContainer.addView(view);
+        }
     }
 
     private void setWinnerText() {
@@ -70,12 +87,13 @@ public class WinActivity extends BaseActivity {
             TextView correctGuessText = view.findViewById(R.id.summaryCorrectGuesserText);
 
             ArrayList<Player> correctPlayers = question.getCorrectGuessingPlayers();
-            String correctPlayersText = formatPlayers(correctPlayers, ", "); //TODO fix this
+            String correctPlayersText = formatPlayers(correctPlayers, ", ");
             questionText.setText(question.getQuestionText());
             Spanned answer = Html.fromHtml(getString(R.string.summary_answer, question.getCorrectAnswerString()));
             answerText.setText(answer);
             if (correctPlayersText == null) {
-                correctGuessText.setVisibility(View.GONE);
+                correctGuessText.setText(R.string.summary_no_correct_answer);
+                correctGuessText.setTextColor(getResources().getColor(R.color.textRed, getTheme()));
             } else {
                 correctGuessText.setText(getString(R.string.summary_correct_players, correctPlayersText));
             }
