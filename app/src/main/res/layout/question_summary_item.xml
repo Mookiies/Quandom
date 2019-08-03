@@ -19,8 +19,7 @@
         android:layout_marginBottom="4dp"
         android:text="@string/summary_answer"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="@dimen/player_selection_text_size"
-        android:textStyle="bold" />
+        android:textSize="@dimen/player_selection_text_size" />
 
     <TextView
         android:id="@+id/summaryCorrectGuesserText"

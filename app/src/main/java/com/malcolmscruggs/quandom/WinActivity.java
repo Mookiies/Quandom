@@ -2,6 +2,8 @@ package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -70,7 +72,8 @@ public class WinActivity extends BaseActivity {
             ArrayList<Player> correctPlayers = question.getCorrectGuessingPlayers();
             String correctPlayersText = formatPlayers(correctPlayers, ", "); //TODO fix this
             questionText.setText(question.getQuestionText());
-            answerText.setText(getString(R.string.summary_answer, question.getCorrectAnswerString()));
+            Spanned answer = Html.fromHtml(getString(R.string.summary_answer, question.getCorrectAnswerString()));
+            answerText.setText(answer);
             if (correctPlayersText == null) {
                 correctGuessText.setVisibility(View.GONE);
             } else {
