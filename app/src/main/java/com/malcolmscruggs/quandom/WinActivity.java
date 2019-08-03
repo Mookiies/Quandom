@@ -1,6 +1,7 @@
 package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -79,6 +80,10 @@ public class WinActivity extends BaseActivity {
 
         summaryContainer = findViewById(R.id.summaryQuestionContainer);
         initializeSummary();
+
+        if (music) {
+            MediaPlayer.create(getApplicationContext(), R.raw.tada).start();
+        }
     }
 
     private void initializeLeaderboard(ArrayList<Player> players, LinearLayout container, String type) {
