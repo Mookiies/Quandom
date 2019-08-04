@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -24,12 +25,19 @@ final public class GameModel implements Serializable {
     private int firstGuessingPlayer = 0;
     private int currentGuessingPlayer = 0;
     private boolean isGameOver = false;
+    private int category;
+    private String difficulty;
+    private boolean usedCache;
 
     private HashMap<Integer, Integer> playerIdxToGuessIdx;
 
-    public GameModel(int numQuestions, ArrayList<Player> players, String response) {
+    public GameModel(ArrayList<Player> players, String response,
+                     int category, String difficulty, boolean usedCache) {
         this.players = players;
+        this.category = category;
+        this.difficulty = difficulty;
         playerIdxToGuessIdx =  new HashMap<>();
+        this.usedCache = usedCache;
 
         // TODO randomize which player goes first the first time
 
@@ -88,6 +96,20 @@ final public class GameModel implements Serializable {
         ArrayList<Player> list = new ArrayList<>(players);
         Collections.sort(list);
         return list;
+    }
+
+    public ArrayList<Player> getSortedPlayersByWins() {
+        ArrayList<Player> list = new ArrayList<>(players);
+        Collections.sort(list, new SortByWins());
+        return list;
+    }
+
+    class SortByWins implements Comparator<Player> {
+
+        @Override
+        public int compare(Player player1, Player player2) {
+            return player1.getPlayerWins() - player2.getPlayerWins();
+        }
     }
 
     public boolean isGameOver() {
@@ -154,6 +176,18 @@ final public class GameModel implements Serializable {
 
     public ArrayList<Question> getQuestions() {
         return questions;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public boolean isUsedCache() {
+        return usedCache;
     }
 
     @Override

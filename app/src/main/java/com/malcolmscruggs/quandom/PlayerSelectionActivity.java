@@ -41,8 +41,8 @@ public class PlayerSelectionActivity extends BaseActivity {
     private int numPoints;
     private ArrayList<Player> players;
     private Button playButton;
-    private ArrayList<Integer> colors = new ArrayList<>();
     private boolean useCache;
+    private ArrayList<Integer> colors = new ArrayList<>();
     private String cachedQuestions;
 
     private final static int TIMEOUT_DURATION = 5000;
@@ -189,9 +189,9 @@ public class PlayerSelectionActivity extends BaseActivity {
         });
     }
 
-    private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
+    private void populateQuestions(int numQuestions, final int category, final String difficulty, boolean mcq) {
         if (useCache) {
-            startIntent(cachedQuestions);
+            startIntent(cachedQuestions, category, difficulty, true);
         } else {
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -207,9 +207,9 @@ public class PlayerSelectionActivity extends BaseActivity {
 
             if (category == 8) {
                 url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
+            } else {
+                url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
             }
-
-            url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
 
             Log.d("URL", url);
 
@@ -218,7 +218,7 @@ public class PlayerSelectionActivity extends BaseActivity {
                 public void onResponse(String response) {
                     Log.d("APIResp", response);
                     //TODO handle when response doesn't contain necessary info
-                    startIntent(response);
+                    startIntent(response, category, difficulty, false);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -226,7 +226,7 @@ public class PlayerSelectionActivity extends BaseActivity {
                     String errorMessage = error.getMessage();
                     Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
                     Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
-                    startIntent(cachedQuestions);
+                    startIntent(cachedQuestions, category, difficulty, true);
                 }
             });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
@@ -267,7 +267,7 @@ public class PlayerSelectionActivity extends BaseActivity {
         ViewCompat.setBackgroundTintList(button, ContextCompat.getColorStateList(this, newColor));
     }
 
-    private void startIntent(String response) {
+    private void startIntent(String response, int category, String difficulty, boolean usedCache) {
         if (response == null) {
             Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
             return;
@@ -284,7 +284,7 @@ public class PlayerSelectionActivity extends BaseActivity {
         } else if (numPlayers == 3) {
             gamePlayer.remove(3);
         }
-        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
+        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(gamePlayer, response, category, difficulty, usedCache));
         startActivity(intent);
     }
 
