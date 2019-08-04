@@ -39,7 +39,7 @@
             android:showDividers="middle" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_vertical_margin"
             android:layout_marginStart="@dimen/default_horizontal_margin"
@@ -50,6 +50,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/play_again"
                 android:layout_marginEnd="24dp"/>
+
+            <Button
+                android:id="@+id/changeCatButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_cat_button"
+                android:layout_marginEnd="24dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_vertical_margin"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin">
 
             <Button
                 android:id="@+id/homeButton"

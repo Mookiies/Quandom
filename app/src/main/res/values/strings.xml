@@ -63,4 +63,5 @@
     <string name="leaderboard_player_wins">%1$s - %2$d wins</string>
     <string name="summary_no_correct_answer">Nobody answered correctly</string>
     <string name="home_button">HOME</string>
+    <string name="change_cat_button">CHANGE CATEGORY</string>
 </resources>

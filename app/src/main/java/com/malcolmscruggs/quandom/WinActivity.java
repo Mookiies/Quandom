@@ -69,6 +69,16 @@ public class WinActivity extends BaseActivity {
             }
         });
 
+        Button changeCatButton = findViewById(R.id.changeCatButton);
+        changeCatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WinActivity.this, CustomPlayActivity.class);
+                intent.putExtra(MODEL_EXTRA_KEY, gameModel);
+                startActivity(intent);
+            }
+        });
+
         winText = findViewById(R.id.winText);
         setWinnerText();
 
