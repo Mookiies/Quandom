@@ -8,9 +8,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 import static org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4;
 
@@ -78,7 +78,16 @@ final public class GameModel implements Serializable {
     }
 
     public ArrayList<Player> getPlayers() {
-        return players;
+        return new ArrayList<>(players);
+    }
+
+    /**
+     * Sorted by natural ordering of Player's comparable. Least to greatest.
+     */
+    public ArrayList<Player> getSortedPlayers() {
+        ArrayList<Player> list = new ArrayList<>(players);
+        Collections.sort(list);
+        return list;
     }
 
     public boolean isGameOver() {
@@ -117,6 +126,7 @@ final public class GameModel implements Serializable {
             if (guess == correctAnswer) {
                 Player player = players.get(playerIdx);
                 player.increasePlayerScoreOnce();
+                currentQuestion.addCorrectGuessingPlayer(player);
             }
         }
     }

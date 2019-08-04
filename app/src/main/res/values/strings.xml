@@ -54,4 +54,11 @@
     <string name="api_error">Error getting questions. Using cached questions</string>
     <string name="fetch_error">Error fetching questions. Please try again.</string>
     <string name="music_switch">Music</string>
+    <string name="summary_correct_players">%1$s answered correctly!</string>
+    <string name="summary_answer">Answer: &lt;b>%1$s&lt;/b></string>
+    <string name="summary">Game Summary</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="player_tie">%1$s Tie!</string>
+    <string name="leaderbaord_player_points">%1$s - %2$d correct</string>
+    <string name="summary_no_correct_answer">Nobody answered correctly</string>
 </resources>

@@ -2,21 +2,36 @@ package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import utils.GameModel;
+import utils.Player;
+import utils.Question;
+
+import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
+
 public class WinActivity extends BaseActivity {
 
-    public static final String WINNING_PLAYER_KEY = "WINNING_PLAYER";
+    private GameModel gameModel;
+
+    private LinearLayout summaryContainer;
+    private LinearLayout leaderboardContainer;
+    private TextView winText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_win);
+
+        gameModel = (GameModel) getIntent().getSerializableExtra(MODEL_EXTRA_KEY);
 
         Switch musicSwitch = findViewById(R.id.musicSwitch);
         setupMusicSwitch(musicSwitch);
@@ -29,21 +44,73 @@ public class WinActivity extends BaseActivity {
             }
         });
 
-        TextView winText = findViewById(R.id.winText);
+        leaderboardContainer = findViewById(R.id.leaderboardContainer);
+        initializeLeaderboard();
 
-        if (getIntent().getStringExtra("Type").equals("win")) {
-            String winningPlayer = getIntent().getStringExtra(WINNING_PLAYER_KEY);
-            winText.setText(getString(R.string.win_callout, winningPlayer));
-        } else if (getIntent().getStringExtra("Type").equals("tie")) {
-            ArrayList<String> winners = getIntent().getStringArrayListExtra(WINNING_PLAYER_KEY);
-            String winningPlayers = "";
-            for (String name : winners) {
-                winningPlayers += name + " ";
-            }
-            winningPlayers += "Tie!";
-            winText.setText(winningPlayers);
+        summaryContainer = findViewById(R.id.summaryQuestionContainer);
+        initializeSummary();
+
+        winText = findViewById(R.id.winText);
+        setWinnerText();
+    }
+
+    private void initializeLeaderboard() {
+        ArrayList<Player> players = gameModel.getSortedPlayers();
+        for(int i = players.size() - 1; i >= 0; i--) {
+            Player player = players.get(i);
+            View view = View.inflate(this, R.layout.leaderboard_item, null);
+            TextView playerName = view.findViewById(R.id.leaderboardPlayerText);
+            View playerColor = view.findViewById(R.id.leaderboardPlayerColor);
+            playerName.setText(getString(R.string.leaderbaord_player_points, player.getPlayerName(), player.getPlayerScore()));
+            playerColor.setBackgroundColor(getResources().getColor(player.getPlayerColor(), getTheme()));
+            leaderboardContainer.addView(view);
         }
+    }
 
+    private void setWinnerText() {
+        ArrayList<Player> winningPlayers = gameModel.getWinningPlayer();
+        if (winningPlayers.size() == 1) {
+            Player winner = winningPlayers.get(0);
+            winText.setText(getString(R.string.win_callout, winner.getPlayerName()));
+            winText.setBackgroundColor(getResources().getColor(winner.getPlayerColor(), getTheme()));
+        } else {
+            String winners = formatPlayers(winningPlayers, " ");
+            winText.setText(getString(R.string.player_tie, winners));
+        }
+    }
+
+    private void initializeSummary() {
+        for (Question question : gameModel.getQuestions()) {
+            View view = View.inflate(this, R.layout.question_summary_item, null);
+            TextView questionText = view.findViewById(R.id.summaryQuestionText);
+            TextView answerText = view.findViewById(R.id.summaryAnswerText);
+            TextView correctGuessText = view.findViewById(R.id.summaryCorrectGuesserText);
+
+            ArrayList<Player> correctPlayers = question.getCorrectGuessingPlayers();
+            String correctPlayersText = formatPlayers(correctPlayers, ", ");
+            questionText.setText(question.getQuestionText());
+            Spanned answer = Html.fromHtml(getString(R.string.summary_answer, question.getCorrectAnswerString()));
+            answerText.setText(answer);
+            if (correctPlayersText == null) {
+                correctGuessText.setText(R.string.summary_no_correct_answer);
+                correctGuessText.setTextColor(getResources().getColor(R.color.textRed, getTheme()));
+            } else {
+                correctGuessText.setText(getString(R.string.summary_correct_players, correctPlayersText));
+            }
+            summaryContainer.addView(view);
+        }
+    }
+
+    private String formatPlayers(ArrayList<Player> players, String formatter) {
+        if (players.size() == 0) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(players.get(0).getPlayerName());
+        for (int i = 1; i < players.size(); i++) {
+            sb.append(formatter).append(players.get(i).getPlayerName());
+        }
+        return sb.toString();
     }
 
     @Override

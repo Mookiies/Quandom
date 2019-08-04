@@ -91,7 +91,8 @@
                     android:inputType="text"
                     android:maxEms="7"
                     android:minEms="2"
-                    android:text="@string/player1_placeholder"
+                    android:maxLength="10"
+                    android:hint="@string/player1_placeholder"
                     android:textColor="@color/primaryTextColor" />
 
                 <Button
@@ -128,7 +129,8 @@
                     android:inputType="text"
                     android:maxEms="7"
                     android:minEms="2"
-                    android:text="@string/player2_placeholder"
+                    android:maxLength="10"
+                    android:hint="@string/player2_placeholder"
                     android:textColor="@color/primaryTextColor" />
 
                 <Button
@@ -167,8 +169,9 @@
                     android:inputType="text"
                     android:maxEms="7"
                     android:minEms="2"
+                    android:maxLength="10"
                     android:textColor="@color/primaryTextColor"
-                    android:text="@string/player3_placeholder" />
+                    android:hint="@string/player3_placeholder" />
 
                 <Button
                     android:id="@+id/p3Color"
@@ -207,8 +210,9 @@
                     android:inputType="text"
                     android:maxEms="7"
                     android:minEms="2"
+                    android:maxLength="10"
                     android:textColor="@color/primaryTextColor"
-                    android:text="@string/player4_placeholder" />
+                    android:hint="@string/player4_placeholder" />
 
                 <Button
                     android:id="@+id/p4Color"

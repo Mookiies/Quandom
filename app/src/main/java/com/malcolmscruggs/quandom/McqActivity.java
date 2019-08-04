@@ -19,8 +19,6 @@ import utils.GameModel;
 import utils.Player;
 import utils.Question;
 
-import static com.malcolmscruggs.quandom.WinActivity.WINNING_PLAYER_KEY;
-
 public class McqActivity extends BaseActivity {
 
     public static final String MODEL_EXTRA_KEY = "QUESTIONS";
@@ -130,26 +128,10 @@ public class McqActivity extends BaseActivity {
 
     private void setCurrentQuestion() {
         if (gameModel.isGameOver()) {
-            ArrayList<Player> winners = gameModel.getWinningPlayer();
-            if (winners.size() == 1) {
-                Player winner = winners.get(0);
-                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-                intent.putExtra("Type", "win");
-                intent.putExtra(WINNING_PLAYER_KEY, winner.getPlayerName());
-                startActivity(intent);
-                return;
-            } else {
-                Intent intent = new Intent(getApplicationContext(), WinActivity.class);
-                intent.putExtra("Type", "tie");
-
-                ArrayList<String> winnerNames = new ArrayList<>();
-                for (Player player : winners) {
-                    winnerNames.add(player.getPlayerName());
-                }
-                intent.putExtra(WINNING_PLAYER_KEY, winnerNames);
-                startActivity(intent);
-                return;
-            }
+            Intent intent = new Intent(getApplicationContext(), WinActivity.class);
+            intent.putExtra(MODEL_EXTRA_KEY, gameModel);
+            startActivity(intent);
+            return;
         }
 
         Question question = gameModel.getCurrentQuestion();

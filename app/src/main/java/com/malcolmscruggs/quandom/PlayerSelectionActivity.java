@@ -240,7 +240,7 @@ public class PlayerSelectionActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                players.get(playerIdx).setPlayerName(editText.getText().toString());
+                players.get(playerIdx).setPlayerName(editText.getText().toString().trim());
             }
 
             @Override
