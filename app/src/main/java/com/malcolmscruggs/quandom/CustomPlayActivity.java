@@ -32,7 +32,6 @@ import static com.malcolmscruggs.quandom.McqActivity.MODEL_EXTRA_KEY;
 public class CustomPlayActivity extends BaseActivity {
 
     GameModel model;
-    private final static int TIMEOUT_DURATION = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,13 @@ public class CustomPlayActivity extends BaseActivity {
                         RadioButton checkedDiff = findViewById(diffsGroup.getCheckedRadioButtonId());
                         if (checkedDiff != null) {
                             String difficulty = checkedDiff.getTag().toString();
-                            populateQuestions(model.getQuestions().size(), cat, difficulty, true);
+                            ArrayList<Player> gamePlayer = new ArrayList<>(model.getPlayers());
+                            for (Player player : gamePlayer) {
+                                player.clearPlayerScore();
+                            }
+
+                            populateQuestions(CustomPlayActivity.this, gamePlayer,
+                                    model.getQuestions().size(), cat, difficulty, true);
                         } else {
                             Toast.makeText(CustomPlayActivity.this, "Choose a Difficulty", Toast.LENGTH_SHORT).show();
                         }
@@ -105,80 +110,5 @@ public class CustomPlayActivity extends BaseActivity {
                 }
             });
         }
-    }
-
-    private void populateQuestions(int numQuestions, final int category, final String difficulty, boolean mcq) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        //Question Type
-        String mcqOrTF;
-        if (mcq) {
-            mcqOrTF = "multiple";
-        } else {
-            mcqOrTF = "boolean";
-        }
-
-        String url;
-
-        if (category == 8) {
-            url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
-        } else {
-            url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
-        }
-
-        Log.d("URL", url);
-
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("APIResp", response);
-                    //TODO handle when response doesn't contain necessary info
-                    startIntent(response, category, difficulty, false);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    String errorMessage = error.getMessage();
-                    Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
-                    Toast.makeText(CustomPlayActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
-                    startIntent(readFromTextFile(R.raw.questions), category, difficulty, true);
-                }
-            });
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
-        queue.add(stringRequest);
-    }
-
-    private void startIntent(String response, int category, String difficulty, boolean usedCache) {
-        if (response == null) {
-            Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(CustomPlayActivity.this, McqActivity.class);
-        ArrayList<Player> gamePlayer = new ArrayList<>(model.getPlayers());
-
-        for (Player player : gamePlayer) {
-            player.clearPlayerScore();
-        }
-
-        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(gamePlayer, response, category, difficulty, usedCache));
-        startActivity(intent);
-    }
-
-    private String readFromTextFile(int resID) {
-        StringBuilder contents = new StringBuilder();
-        try {
-            InputStream is = getApplicationContext().getResources().openRawResource(resID);
-            BufferedReader bs = new BufferedReader(new InputStreamReader(is));
-            String tmp = null;
-            while ((tmp = bs.readLine()) != null) {
-                contents.append(tmp);
-                contents.append("\n");
-            }
-            bs.close();
-        } catch (IOException e) {
-            Log.d("CacheQUES", e.getMessage());
-            return null;
-        }
-        return contents.toString();
     }
 }
