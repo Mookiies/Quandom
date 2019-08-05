@@ -13,6 +13,7 @@ public class Player implements Comparable<Player>, Serializable {
     private String playerName;
     private int playerColor;
     private int playerScore;
+    private int playerWins;
 
     public Player(String playerName, int playerColor) {
         this.playerName = playerName;
@@ -46,6 +47,18 @@ public class Player implements Comparable<Player>, Serializable {
 
     public int getPlayerScore() {
         return playerScore;
+    }
+
+    public void clearPlayerScore() {
+        this.playerScore = 0;
+    }
+
+    public int getPlayerWins() {
+        return playerWins;
+    }
+
+    public void increasePlayerWinsOnce() {
+        this.playerWins++;
     }
 
     @Override

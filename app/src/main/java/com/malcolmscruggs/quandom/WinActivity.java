@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 import utils.GameModel;
@@ -24,6 +23,7 @@ public class WinActivity extends BaseActivity {
 
     private LinearLayout summaryContainer;
     private LinearLayout leaderboardContainer;
+    private LinearLayout leaderboardWinsContainer;
     private TextView winText;
 
     @Override
@@ -36,39 +36,72 @@ public class WinActivity extends BaseActivity {
         Switch musicSwitch = findViewById(R.id.musicSwitch);
         setupMusicSwitch(musicSwitch);
 
-        Button playAgainButton = findViewById(R.id.playAgainButton);
-        playAgainButton.setOnClickListener(new View.OnClickListener() {
+        Button homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
 
-        leaderboardContainer = findViewById(R.id.leaderboardContainer);
-        initializeLeaderboard();
+        Button playAgainButton = findViewById(R.id.playAgainButton);
+        playAgainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Player> gamePlayer = new ArrayList<>(gameModel.getPlayers());
+                for (Player player : gamePlayer) {
+                    player.clearPlayerScore();
+                }
+                populateQuestions(gameModel.isUsedCache(), WinActivity.this, gamePlayer,
+                        gameModel.getQuestions().size(), gameModel.getCategory(),
+                        gameModel.getDifficulty(), true);
+            }
+        });
 
-        summaryContainer = findViewById(R.id.summaryQuestionContainer);
-        initializeSummary();
+        Button changeCatButton = findViewById(R.id.changeCatButton);
+        changeCatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WinActivity.this, CustomPlayActivity.class);
+                intent.putExtra(MODEL_EXTRA_KEY, gameModel);
+                startActivity(intent);
+            }
+        });
 
         winText = findViewById(R.id.winText);
         setWinnerText();
+
+        leaderboardContainer = findViewById(R.id.leaderboardContainer);
+        initializeLeaderboard(gameModel.getSortedPlayers(), leaderboardContainer, "points");
+
+        leaderboardWinsContainer = findViewById(R.id.leaderboardWinsContainer);
+        initializeLeaderboard(gameModel.getSortedPlayersByWins(), leaderboardWinsContainer, "wins");
+
+        summaryContainer = findViewById(R.id.summaryQuestionContainer);
+        initializeSummary();
     }
 
-    private void initializeLeaderboard() {
-        ArrayList<Player> players = gameModel.getSortedPlayers();
-        for(int i = players.size() - 1; i >= 0; i--) {
+    private void initializeLeaderboard(ArrayList<Player> players, LinearLayout container, String type) {
+        for (int i = players.size() - 1; i >= 0; i--) {
             Player player = players.get(i);
             View view = View.inflate(this, R.layout.leaderboard_item, null);
             TextView playerName = view.findViewById(R.id.leaderboardPlayerText);
             View playerColor = view.findViewById(R.id.leaderboardPlayerColor);
-            playerName.setText(getString(R.string.leaderbaord_player_points, player.getPlayerName(), player.getPlayerScore()));
+            if (type.equals("points")) {
+                playerName.setText(getString(R.string.leaderbaord_player_points, player.getPlayerName(), player.getPlayerScore()));
+            } else {
+                playerName.setText(getString(R.string.leaderboard_player_wins, player.getPlayerName(), player.getPlayerWins()));
+            }
             playerColor.setBackgroundColor(getResources().getColor(player.getPlayerColor(), getTheme()));
-            leaderboardContainer.addView(view);
+            container.addView(view);
         }
     }
 
     private void setWinnerText() {
         ArrayList<Player> winningPlayers = gameModel.getWinningPlayer();
+        for (Player player : winningPlayers) {
+            player.increasePlayerWinsOnce();
+        }
         if (winningPlayers.size() == 1) {
             Player winner = winningPlayers.get(0);
             winText.setText(getString(R.string.win_callout, winner.getPlayerName()));

@@ -39,7 +39,7 @@
             android:showDividers="middle" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_vertical_margin"
             android:layout_marginStart="@dimen/default_horizontal_margin"
@@ -52,9 +52,26 @@
                 android:layout_marginEnd="24dp"/>
 
             <Button
+                android:id="@+id/changeCatButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HOME"
+                android:text="@string/change_cat_button"
+                android:layout_marginEnd="24dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_vertical_margin"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin">
+
+            <Button
+                android:id="@+id/homeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_button"
                 android:layout_marginEnd="24dp"/>
 
             <Switch
@@ -62,6 +79,18 @@
                 style="@style/MusicSwitch"
                 android:layout_marginTop="0dp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/leaderboardWinsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="@dimen/default_vertical_margin"
+            android:layout_marginStart="@dimen/default_horizontal_margin"
+            android:layout_marginEnd="@dimen/default_horizontal_margin"
+            android:divider="?android:dividerHorizontal"
+            android:showDividers="middle" />
 
         <TextView
             android:layout_width="wrap_content"

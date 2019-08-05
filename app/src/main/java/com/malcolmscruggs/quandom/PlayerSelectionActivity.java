@@ -42,11 +42,8 @@ public class PlayerSelectionActivity extends BaseActivity {
     private ArrayList<Player> players;
     private Button playButton;
     private ArrayList<Integer> colors = new ArrayList<>();
-    private boolean useCache;
-    private String cachedQuestions;
 
     private final static int TIMEOUT_DURATION = 5000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +63,6 @@ public class PlayerSelectionActivity extends BaseActivity {
         // set default values for # of players and points
         numPlayers = 2;
         numPoints = 5;
-
-        // Set cached questions from file
-        cachedQuestions = readFromTextFile(R.raw.questions);
 
         // Set music value
         music = getIntent().getBooleanExtra("Music", false);
@@ -168,13 +162,26 @@ public class PlayerSelectionActivity extends BaseActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<Player> gamePlayer = new ArrayList<>(players);
+                if (numPlayers == 1) {
+                    gamePlayer.remove(3);
+                    gamePlayer.remove(2);
+                    gamePlayer.remove(1);
+                } else if (numPlayers == 2) {
+                    gamePlayer.remove(3);
+                    gamePlayer.remove(2);
+                } else if (numPlayers == 3) {
+                    gamePlayer.remove(3);
+                }
+
                 Bundle extras = getIntent().getExtras();
                 String type = extras.getString("Type");
                 if (type != null && type.equals("quick")) {
-                    populateQuestions(numPoints, 9, "easy", true);
+                    populateQuestions(useCache, PlayerSelectionActivity.this, gamePlayer, numPoints,
+                            9, "easy", true);
                 } else {
-                    populateQuestions(numPoints, extras.getInt("Category"),
-                            extras.getString("Difficulty"), true);
+                    populateQuestions(useCache, PlayerSelectionActivity.this, gamePlayer, numPoints,
+                            extras.getInt("Category"), extras.getString("Difficulty"), true);
                 }
             }
         });
@@ -188,51 +195,7 @@ public class PlayerSelectionActivity extends BaseActivity {
             }
         });
     }
-
-    private void populateQuestions(int numQuestions, int category, String difficulty, boolean mcq) {
-        if (useCache) {
-            startIntent(cachedQuestions);
-        } else {
-            RequestQueue queue = Volley.newRequestQueue(this);
-
-            //Question Type
-            String mcqOrTF;
-            if (mcq) {
-                mcqOrTF = "multiple";
-            } else {
-                mcqOrTF = "boolean";
-            }
-
-            String url;
-
-            if (category == 8) {
-                url = String.format("https://opentdb.com/api.php?amount=%d&difficulty=%s&type=multiple", numQuestions, difficulty.toLowerCase(), mcqOrTF);
-            } else {
-                url = String.format("https://opentdb.com/api.php?amount=%d&category=%d&difficulty=%s&type=multiple", numQuestions, category, difficulty.toLowerCase(), mcqOrTF);
-            }
-            Log.d("URL", url);
-
-            final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("APIResp", response);
-                    //TODO handle when response doesn't contain necessary info
-                    startIntent(response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    String errorMessage = error.getMessage();
-                    Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
-                    Toast.makeText(PlayerSelectionActivity.this, getString(R.string.api_error), Toast.LENGTH_LONG).show();
-                    startIntent(cachedQuestions);
-                }
-            });
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
-            queue.add(stringRequest);
-        }
-    }
-
+  
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -264,44 +227,5 @@ public class PlayerSelectionActivity extends BaseActivity {
         int newColor = colors.remove(0);
         player.setPlayerColor(newColor);
         ViewCompat.setBackgroundTintList(button, ContextCompat.getColorStateList(this, newColor));
-    }
-
-    private void startIntent(String response) {
-        if (response == null) {
-            Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent(PlayerSelectionActivity.this, McqActivity.class);
-        ArrayList<Player> gamePlayer = new ArrayList<>(players);
-        if (numPlayers == 1) {
-            gamePlayer.remove(3);
-            gamePlayer.remove(2);
-            gamePlayer.remove(1);
-        } else if (numPlayers == 2) {
-            gamePlayer.remove(3);
-            gamePlayer.remove(2);
-        } else if (numPlayers == 3) {
-            gamePlayer.remove(3);
-        }
-        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(3, gamePlayer, response));
-        startActivity(intent);
-    }
-
-    private String readFromTextFile(int resID) {
-        StringBuilder contents = new StringBuilder();
-        try {
-            InputStream is = getApplicationContext().getResources().openRawResource(resID);
-            BufferedReader bs = new BufferedReader(new InputStreamReader(is));
-            String tmp = null;
-            while ((tmp = bs.readLine()) != null) {
-                contents.append(tmp);
-                contents.append("\n");
-            }
-            bs.close();
-        } catch (IOException e) {
-            Log.d("CacheQUES", e.getMessage());
-            return null;
-        }
-        return contents.toString();
     }
 }

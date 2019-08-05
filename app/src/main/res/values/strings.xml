@@ -60,5 +60,8 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="player_tie">%1$s Tie!</string>
     <string name="leaderbaord_player_points">%1$s - %2$d correct</string>
+    <string name="leaderboard_player_wins">%1$s - %2$d wins</string>
     <string name="summary_no_correct_answer">Nobody answered correctly</string>
+    <string name="home_button">HOME</string>
+    <string name="change_cat_button">CHANGE CATEGORY</string>
 </resources>
