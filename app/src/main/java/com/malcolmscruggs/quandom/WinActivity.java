@@ -82,7 +82,14 @@ public class WinActivity extends BaseActivity {
         initializeSummary();
 
         if (music) {
-            MediaPlayer.create(getApplicationContext(), R.raw.tada).start();
+            MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.tada);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.release();
+                }
+            });
+            mediaPlayer.start();
         }
     }
 
