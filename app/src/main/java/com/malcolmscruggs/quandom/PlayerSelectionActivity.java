@@ -195,7 +195,7 @@ public class PlayerSelectionActivity extends BaseActivity {
             }
         });
     }
-
+  
     private void setupPlayerEditText(final int playerIdx, final EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
