@@ -15,7 +15,7 @@
     <string name="guess">GUESS</string>
     <string name="player_score">%1$s has %2$d points!</string>
     <string name="win_callout">%1$s Wins!</string>
-    <string name="play_again">PLAY AGAIN</string>
+    <string name="play_again">REMATCH</string>
     <string name="back_button_quit">Press BACK again to quit game</string>
     <string name="player4_placeholder">Player4</string>
     <string name="p4">P4</string>
