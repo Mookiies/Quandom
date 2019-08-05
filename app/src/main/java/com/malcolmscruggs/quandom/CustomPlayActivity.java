@@ -101,7 +101,7 @@ public class CustomPlayActivity extends BaseActivity {
                                 player.clearPlayerScore();
                             }
 
-                            populateQuestions(CustomPlayActivity.this, gamePlayer,
+                            populateQuestions(false, CustomPlayActivity.this, gamePlayer,
                                     model.getQuestions().size(), cat, difficulty, true);
                         } else {
                             Toast.makeText(CustomPlayActivity.this, "Choose a Difficulty", Toast.LENGTH_SHORT).show();

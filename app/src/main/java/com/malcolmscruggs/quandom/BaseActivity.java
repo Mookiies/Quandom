@@ -71,9 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
-    protected void populateQuestions(final Context context, final ArrayList<Player> players,
+    protected void populateQuestions(boolean usedCache, final Context context, final ArrayList<Player> players,
                                      int numQuestions, final int category, final String difficulty, boolean mcq) {
-        if (useCache) {
+        if (usedCache) {
             startIntent(players, context, cachedQuestions, category, difficulty, true);
         } else {
             RequestQueue queue = Volley.newRequestQueue(this);

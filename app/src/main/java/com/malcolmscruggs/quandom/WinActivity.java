@@ -52,7 +52,7 @@ public class WinActivity extends BaseActivity {
                 for (Player player : gamePlayer) {
                     player.clearPlayerScore();
                 }
-                populateQuestions(WinActivity.this, gamePlayer,
+                populateQuestions(gameModel.isUsedCache(), WinActivity.this, gamePlayer,
                         gameModel.getQuestions().size(), gameModel.getCategory(),
                         gameModel.getDifficulty(), true);
             }

@@ -177,10 +177,10 @@ public class PlayerSelectionActivity extends BaseActivity {
                 Bundle extras = getIntent().getExtras();
                 String type = extras.getString("Type");
                 if (type != null && type.equals("quick")) {
-                    populateQuestions(PlayerSelectionActivity.this, gamePlayer, numPoints,
+                    populateQuestions(useCache, PlayerSelectionActivity.this, gamePlayer, numPoints,
                             9, "easy", true);
                 } else {
-                    populateQuestions(PlayerSelectionActivity.this, gamePlayer, numPoints,
+                    populateQuestions(useCache, PlayerSelectionActivity.this, gamePlayer, numPoints,
                             extras.getInt("Category"), extras.getString("Difficulty"), true);
                 }
             }
