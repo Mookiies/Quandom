@@ -2,7 +2,6 @@ package com.malcolmscruggs.quandom;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -13,7 +12,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        Log.d("MusicSERV", getLocalClassName()+" onCreate " );
 
         setContentView(R.layout.activity_main);
 

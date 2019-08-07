@@ -39,7 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private final static int TIMEOUT_DURATION = 5000;
 
     protected void setupMusicSwitch(Switch musicSwitch) {
-//        music = isMusicRunning();
         music = getIntent().getBooleanExtra("Music", false);
         musicIntent = new Intent(this, MusicService.class);
         musicSwitch.setChecked(music);
@@ -61,16 +60,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             stopService(musicIntent);
         }
-    }
-
-    private boolean isMusicRunning() {
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (MusicService.class.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     protected void populateQuestions(boolean usedCache, final Context context, final ArrayList<Player> players,
