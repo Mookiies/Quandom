@@ -34,11 +34,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean music;
     protected boolean useCache;
     private String cachedQuestions;
+    protected Intent musicIntent;
 
     private final static int TIMEOUT_DURATION = 5000;
 
     protected void setupMusicSwitch(Switch musicSwitch) {
-        music = isMusicRunning();
+//        music = isMusicRunning();
+        music = getIntent().getBooleanExtra("Music", false);
+        musicIntent = new Intent(this, MusicService.class);
         musicSwitch.setChecked(music);
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -52,7 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void toggleMusic(boolean music) {
-        Intent musicIntent = new Intent(this, MusicService.class);
         musicIntent.putExtra("Music", music);
         if (music) {
             startService(musicIntent);
@@ -125,6 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(context, McqActivity.class);
         intent.putExtra(MODEL_EXTRA_KEY, new GameModel(players, response, category, difficulty, usedCache));
+        intent.putExtra("Music", music);
         startActivity(intent);
     }
 
@@ -144,5 +147,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             return null;
         }
         return contents.toString();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MusicSERV", getLocalClassName()+" onPause : "+music);
+        stopService(musicIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MusicSERV", getLocalClassName()+" onResume : "+music);
+        toggleMusic(music);
     }
 }
