@@ -11,16 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".MusicService" />
-        <activity android:name=".CustomPlayActivity"></activity>
-        <activity android:name=".McqActivity" />
+
+        <activity
+            android:name=".CustomPlayActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".McqActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PlayerSelectionActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".WinActivity" />
+        <activity
+            android:name=".WinActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.Launcher"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
