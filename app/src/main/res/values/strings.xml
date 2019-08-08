@@ -64,4 +64,7 @@
     <string name="summary_no_correct_answer">Nobody answered correctly</string>
     <string name="home_button">HOME</string>
     <string name="change_cat_button">CHANGE CATEGORY</string>
+    <string name="info_button_text">&#8942;</string>
+    <string name="quick_play_info_text">Quick play info text goes here</string>
+    <string name="custom_play_info_text">Custom play info text goes here yadadada</string>
 </resources>

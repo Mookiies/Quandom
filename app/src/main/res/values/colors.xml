@@ -27,4 +27,5 @@
     <color name="materialAmber">#ff6f00</color>
     <color name="materialGrey">#263238</color>
     <color name="materialGreenYellow">#9E9D24</color>
+    <color name="popup_background">#3B484B</color>
 </resources>

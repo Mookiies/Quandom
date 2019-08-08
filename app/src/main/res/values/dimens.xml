@@ -2,7 +2,7 @@
 <resources>
     <dimen name="callout_text_size">36sp</dimen>
     <dimen name="big_button_text_size">20sp</dimen>
-    <dimen name="default_horizontal_margin">20dp</dimen>
+    <dimen name="default_horizontal_margin">15dp</dimen>
     <dimen name="default_horizontal_padding">12dp</dimen>
     <dimen name="default_vertical_padding">12dp</dimen>
     <dimen name="default_vertical_margin">24dp</dimen>
@@ -13,4 +13,7 @@
     <dimen name="cache_switch_padding">10dp</dimen>
     <dimen name="music_switch_top_pad">40dp</dimen>
     <dimen name="win_screen_button_margin">12dp</dimen>
+    <dimen name="info_margin">0dp</dimen>
+    <dimen name="popup_margin">40dp</dimen>
+    <dimen name="popup_text_size">20sp</dimen>
 </resources>
