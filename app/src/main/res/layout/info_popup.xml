@@ -3,16 +3,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@color/popup_background"
+    android:background="#075DC4"
+    android:backgroundTint="#E4011022"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/popupTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/popup_margin"
         android:layout_marginTop="@dimen/default_horizontal_margin"
-        android:text="Placeholder"
-        android:textAlignment="center"
+        android:text="Players can quickly begin a new game in the default category: General Knowledge\nPlayers must alternately answer multiple choice questions from the selected category. The player with the highest score wins."
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
         android:textSize="@dimen/popup_text_size"
-        android:layout_margin="@dimen/popup_margin"/>
+        android:typeface="monospace" />
 </LinearLayout>

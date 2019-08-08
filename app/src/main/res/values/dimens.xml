@@ -15,5 +15,5 @@
     <dimen name="win_screen_button_margin">12dp</dimen>
     <dimen name="info_margin">0dp</dimen>
     <dimen name="popup_margin">40dp</dimen>
-    <dimen name="popup_text_size">20sp</dimen>
+    <dimen name="popup_text_size">14sp</dimen>
 </resources>

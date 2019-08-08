@@ -19,7 +19,7 @@
     <string name="back_button_quit">Press BACK again to quit game</string>
     <string name="player4_placeholder">Player4</string>
     <string name="p4">P4</string>
-    <string name="cache_switch">Use Cache</string>
+    <string name="cache_switch">Offline mode</string>
     <string name="custom_cats">Categories</string>
     <string name="custom_diff">Difficulty</string>
     <string name="all">Click Here for All</string>
@@ -65,6 +65,6 @@
     <string name="home_button">HOME</string>
     <string name="change_cat_button">CHANGE CATEGORY</string>
     <string name="info_button_text">&#8942;</string>
-    <string name="quick_play_info_text">Quick play info text goes here</string>
-    <string name="custom_play_info_text">Custom play info text goes here yadadada</string>
+    <string name="quick_play_info_text">Players can quickly begin a new game in the default category: General Knowledge\nPlayers must alternately answer multiple choice questions from the selected category. The player with the highest score wins.</string>
+    <string name="custom_play_info_text">Players can choose their own category of questions for their game.\nPlayers must alternately answer multiple choice questions from the selected category. The player with the highest score wins.</string>
 </resources>
