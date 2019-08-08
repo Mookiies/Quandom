@@ -28,29 +28,31 @@ final public class GameModel implements Serializable {
     private int category;
     private String difficulty;
     private boolean usedCache;
+    private int numQuestions;
 
     private HashMap<Integer, Integer> playerIdxToGuessIdx;
 
     public GameModel(ArrayList<Player> players, String response,
-                     int category, String difficulty, boolean usedCache) {
+                     int category, String difficulty, boolean usedCache, int numQuestions) {
         this.players = players;
         this.category = category;
         this.difficulty = difficulty;
         playerIdxToGuessIdx =  new HashMap<>();
         this.usedCache = usedCache;
+        this.numQuestions = numQuestions;
 
         // TODO randomize which player goes first the first time
 
         Log.d("RESPONSE", response);
         this.questions = new ArrayList<>();
-        this.populateQuestions(response);
+        this.populateQuestions(response, numQuestions);
     }
 
-    private void populateQuestions(String response) {
+    private void populateQuestions(String response, int numQuestions) {
         try {
             JSONObject json = new JSONObject(response);
             JSONArray ques = json.getJSONArray("results");
-            for (int i = 0; i < ques.length(); i++) {
+            for (int i = 0; i < numQuestions; i++) {
                 JSONObject question = ques.getJSONObject(i);
                 String category = unescapeHtml4(question.getString("category"));
                 String questionText = unescapeHtml4(question.getString("question"));
@@ -67,8 +69,9 @@ final public class GameModel implements Serializable {
                 Question questionObj = new Question(questionText, answers, correctIdx);
                 this.questions.add(questionObj);
                 Log.d("ANS", "ques: " + questionObj.toString());
-
             }
+            //Randomize questions
+            Collections.shuffle(this.questions);
         } catch (JSONException e) {
             Log.d("JSONOBJ", e.getMessage());
         }

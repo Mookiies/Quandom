@@ -63,9 +63,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void populateQuestions(boolean usedCache, final Context context, final ArrayList<Player> players,
-                                     int numQuestions, final int category, final String difficulty, boolean mcq) {
+                                     final int numQuestions, final int category, final String difficulty, boolean mcq) {
         if (usedCache) {
-            startIntent(players, context, cachedQuestions, category, difficulty, true);
+            startIntent(players, context, cachedQuestions, category, difficulty, true, numQuestions);
         } else {
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     Log.d("APIResp", response);
                     //TODO handle when response doesn't contain necessary info
-                    startIntent(players, context, response, category, difficulty, false);
+                    startIntent(players, context, response, category, difficulty, false, numQuestions);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -100,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     String errorMessage = error.getMessage();
                     Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
                     Toast.makeText(context, getString(R.string.api_error), Toast.LENGTH_LONG).show();
-                    startIntent(players, context, cachedQuestions, category, difficulty, true);
+                    startIntent(players, context, cachedQuestions, category, difficulty, true, numQuestions);
                 }
             });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
@@ -109,13 +109,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void startIntent(ArrayList<Player> players, Context context,
-                             String response, int category, String difficulty, boolean usedCache) {
+                             String response, int category, String difficulty, boolean usedCache, int numQuestions) {
         if (response == null) {
             Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(context, McqActivity.class);
-        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(players, response, category, difficulty, usedCache));
+        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(players, response, category, difficulty, usedCache, numQuestions));
         intent.putExtra("Music", music);
         startActivity(intent);
     }
