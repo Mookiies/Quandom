@@ -130,6 +130,7 @@ public class McqActivity extends BaseActivity {
         if (gameModel.isGameOver()) {
             Intent intent = new Intent(getApplicationContext(), WinActivity.class);
             intent.putExtra(MODEL_EXTRA_KEY, gameModel);
+            intent.putExtra("Music", music);
             startActivity(intent);
             return;
         }

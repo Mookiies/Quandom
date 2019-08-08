@@ -34,30 +34,52 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp">
 
-        <Button
-            android:id="@+id/quickPlayButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginTop="@dimen/default_vertical_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:layout_marginBottom="@dimen/default_vertical_margin"
-
-            android:text="@string/quick_play_text"
-            android:textStyle="bold"
-            android:textSize="@dimen/big_button_text_size"/>
-
-        <Button
-            android:id="@+id/customPlayButton"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="8"
+            android:layout_marginBottom="@dimen/default_horizontal_margin">
+            <Button
+                android:id="@+id/quickPlayButton"
+                android:layout_width="@dimen/info_margin"
+                android:layout_height="wrap_content"
+                android:text="@string/quick_play_text"
+                android:textStyle="bold"
+                android:layout_weight="7"
+                android:textSize="@dimen/big_button_text_size"/>
+            <Button
+                android:id="@+id/quickInfoButton"
+                android:layout_width="@dimen/info_margin"
+                android:layout_height="wrap_content"
+                android:text="@string/info_button_text"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="@dimen/big_button_text_size"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_horizontal_margin"
-            android:layout_marginEnd="@dimen/default_horizontal_margin"
-            android:layout_marginBottom="@dimen/default_vertical_margin"
-
-            android:text="@string/custom_play_text"
-            android:textSize="@dimen/big_button_text_size"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="8"
+            android:layout_marginBottom="@dimen/default_horizontal_margin">
+            <Button
+                android:id="@+id/customPlayButton"
+                android:layout_width="@dimen/info_margin"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_play_text"
+                android:textStyle="bold"
+                android:layout_weight="7"
+                android:textSize="@dimen/big_button_text_size"/>
+            <Button
+                android:id="@+id/customInfoButton"
+                android:layout_width="@dimen/info_margin"
+                android:layout_height="wrap_content"
+                android:text="@string/info_button_text"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textSize="@dimen/big_button_text_size"/>
+        </LinearLayout>
 
         <Switch
             android:id="@+id/musicSwitch"

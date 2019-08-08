@@ -34,11 +34,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected boolean music;
     protected boolean useCache;
     private String cachedQuestions;
+    protected Intent musicIntent;
 
     private final static int TIMEOUT_DURATION = 5000;
 
     protected void setupMusicSwitch(Switch musicSwitch) {
-        music = isMusicRunning();
+        music = getIntent().getBooleanExtra("Music", false);
+        musicIntent = new Intent(this, MusicService.class);
         musicSwitch.setChecked(music);
         musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -52,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void toggleMusic(boolean music) {
-        Intent musicIntent = new Intent(this, MusicService.class);
         musicIntent.putExtra("Music", music);
         if (music) {
             startService(musicIntent);
@@ -61,20 +62,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isMusicRunning() {
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (MusicService.class.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     protected void populateQuestions(boolean usedCache, final Context context, final ArrayList<Player> players,
-                                     int numQuestions, final int category, final String difficulty, boolean mcq) {
+                                     final int numQuestions, final int category, final String difficulty, boolean mcq) {
         if (usedCache) {
-            startIntent(players, context, cachedQuestions, category, difficulty, true);
+            startIntent(players, context, cachedQuestions, category, difficulty, true, numQuestions);
         } else {
             RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -101,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     Log.d("APIResp", response);
                     //TODO handle when response doesn't contain necessary info
-                    startIntent(players, context, response, category, difficulty, false);
+                    startIntent(players, context, response, category, difficulty, false, numQuestions);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -109,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     String errorMessage = error.getMessage();
                     Log.d("APIResp", errorMessage != null ? errorMessage : "No error message");
                     Toast.makeText(context, getString(R.string.api_error), Toast.LENGTH_LONG).show();
-                    startIntent(players, context, cachedQuestions, category, difficulty, true);
+                    startIntent(players, context, cachedQuestions, category, difficulty, true, numQuestions);
                 }
             });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_DURATION, 0, 0));
@@ -118,13 +109,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void startIntent(ArrayList<Player> players, Context context,
-                             String response, int category, String difficulty, boolean usedCache) {
+                             String response, int category, String difficulty, boolean usedCache, int numQuestions) {
         if (response == null) {
             Toast.makeText(this, getString(R.string.fetch_error), Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(context, McqActivity.class);
-        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(players, response, category, difficulty, usedCache));
+        intent.putExtra(MODEL_EXTRA_KEY, new GameModel(players, response, category, difficulty, usedCache, numQuestions));
+        intent.putExtra("Music", music);
         startActivity(intent);
     }
 
@@ -144,5 +136,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             return null;
         }
         return contents.toString();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MusicSERV", getLocalClassName()+" onPause : "+music);
+        stopService(musicIntent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MusicSERV", getLocalClassName()+" onResume : "+music);
+        toggleMusic(music);
     }
 }
