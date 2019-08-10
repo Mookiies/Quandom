@@ -37,11 +37,13 @@ public class WinActivity extends BaseActivity {
         Switch musicSwitch = findViewById(R.id.musicSwitch);
         setupMusicSwitch(musicSwitch);
 
-        Button homeButton = findViewById(R.id.homeButton);
+        final Button homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                Intent homeIntent = new Intent(getApplicationContext(), MainActivity.class);
+                homeIntent.putExtra("Music", music);
+                startActivity(homeIntent);
             }
         });
 
@@ -65,6 +67,7 @@ public class WinActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(WinActivity.this, CustomPlayActivity.class);
                 intent.putExtra(MODEL_EXTRA_KEY, gameModel);
+                intent.putExtra("Music", music);
                 startActivity(intent);
             }
         });
@@ -160,6 +163,8 @@ public class WinActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent backIntent = new Intent(this, MainActivity.class);
+        backIntent.putExtra("Music", music);
+        startActivity(backIntent);
     }
 }
