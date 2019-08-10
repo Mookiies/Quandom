@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent customPlayIntent = new Intent(getApplicationContext(), CustomPlayActivity.class);
+                customPlayIntent.putExtra("Music", music);
                 startActivity(customPlayIntent);
             }
         });

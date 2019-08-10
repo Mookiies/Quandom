@@ -69,6 +69,7 @@ public class CustomPlayActivity extends BaseActivity {
                             intent.putExtra("Type", "custom");
                             intent.putExtra("Category", cat);
                             intent.putExtra("Difficulty", difficulty);
+                            intent.putExtra("Music", music);
                             startActivity(intent);
                         } else {
                             Toast.makeText(CustomPlayActivity.this, "Choose a Difficulty", Toast.LENGTH_SHORT).show();
